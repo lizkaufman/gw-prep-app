@@ -1,0 +1,31 @@
+.burgerMenu {
+  display: inline-block;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  margin: 5px 0;
+  background-color: black;
+}
+
+/* Animation for the burger menu icon */
+.burgerMenu:hover .bar {
+  background-color: #333;
+}
+
+/* Rotate the top and bottom bars to form an X when the menu is opened */
+.burgerMenu.open .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burgerMenu.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.burgerMenu.open .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
