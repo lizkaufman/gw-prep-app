@@ -1,22 +1,30 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import styles from "../styles/header.module.css";
 import logo from "../images/Games_Workshop_logo.svg";
 
 import BurgerMenu from "./BurgerMenu";
+import MenuDrawer from "./MenuDrawer";
 
 const Header = () => {
+  const [showMenu, setShowMenu] = useState(false);
+
+  function toggleMenu() {
+    setShowMenu(!showMenu);
+  }
+
   return (
-    <div className="flex flex-row justify-space-between align-center">
+    <header className="flex flex-row justify-space-between align-center">
       <Image
         alt="games workshop logo"
         src={logo}
-        className={`${styles.logo} py-4 px-3`}
+        className={`${styles.logo} py-4`}
         width={200}
       />
-      {/* <h2 className="px-4 py-4">Games Workshop</h2> */}
-      <BurgerMenu />
-    </div>
+      <BurgerMenu toggleMenu={toggleMenu} />
+      {showMenu && <MenuDrawer />}
+    </header>
   );
 };
 

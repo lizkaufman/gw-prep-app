@@ -3,7 +3,11 @@
 import { useState } from "react";
 import styles from "../styles/burgerMenu.module.css";
 
-function BurgerMenu() {
+interface BurgerMenuProps {
+  toggleMenu: () => void;
+}
+
+function BurgerMenu({ toggleMenu }: BurgerMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleMenuClick() {
@@ -11,14 +15,21 @@ function BurgerMenu() {
   }
 
   return (
-    <div
-      className={`${styles.burgerMenu} ${isOpen ? styles.open : ""} px-4 py-4`}
-      onClick={handleMenuClick}
-    >
-      <span className={styles.bar}></span>
-      <span className={styles.bar}></span>
-      <span className={styles.bar}></span>
-    </div>
+    <>
+      <div
+        className={`${styles.burgerMenu} ${
+          isOpen ? styles.open : ""
+        } px-5 py-4`}
+        onClick={() => {
+          handleMenuClick();
+          toggleMenu();
+        }}
+      >
+        <span className={styles.bar}></span>
+        <span className={styles.bar}></span>
+        <span className={styles.bar}></span>
+      </div>
+    </>
   );
 }
 
