@@ -15,7 +15,9 @@ const Header = () => {
   }
 
   return (
-    <header className="flex flex-row justify-space-between align-center">
+    <header
+      className={`${styles.header} flex flex-row justify-space-between align-center`}
+    >
       <Image
         alt="games workshop logo"
         src={logo}
