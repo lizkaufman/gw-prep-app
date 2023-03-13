@@ -12,7 +12,7 @@ function BurgerMenu() {
 
   return (
     <div
-      className={`${styles.burgerMenu} ${isOpen ? styles.open : ""}`}
+      className={`${styles.burgerMenu} ${isOpen ? styles.open : ""} px-4 py-4`}
       onClick={handleMenuClick}
     >
       <span className={styles.bar}></span>

@@ -1,7 +1,6 @@
 .burgerMenu {
   display: inline-block;
   cursor: pointer;
-  padding: 10px;
 }
 
 .bar {
