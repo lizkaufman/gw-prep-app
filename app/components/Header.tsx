@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import styles from "../styles/header.module.css";
 import logo from "../images/Games_Workshop_logo.svg";
+import shoppingCart from "../images/shopping-cart.png";
 
 import BurgerMenu from "./BurgerMenu";
 import MenuDrawer from "./MenuDrawer";
@@ -24,7 +25,16 @@ const Header = () => {
         className={`${styles.logo} py-4`}
         width={200}
       />
-      <BurgerMenu toggleMenu={toggleMenu} />
+      <div>
+        <Image
+          alt="shopping cart"
+          src={shoppingCart}
+          className={`py-4`}
+          width={30}
+          height={60}
+        />
+        <BurgerMenu toggleMenu={toggleMenu} />
+      </div>
       {showMenu && <MenuDrawer />}
     </header>
   );

@@ -11,7 +11,7 @@ const open_sans = Open_Sans({ subsets: ["latin"] });
 export default function Home() {
   return (
     <>
-      <main className={styles.main}>main</main>;
+      <main className={styles.main}>main</main>
     </>
   );
 }

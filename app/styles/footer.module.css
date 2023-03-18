@@ -1,0 +1,15 @@
+.footer {
+  background-color: #cccccc;
+}
+
+.footerDivider {
+  display: block;
+  width: 90%;
+  height: 1px;
+  background-color: black;
+}
+
+.footerLinks {
+  width: 100vw;
+  margin-left: 10vw;
+}
