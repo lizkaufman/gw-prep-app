@@ -1,15 +1,19 @@
 .footer {
-  background-color: #cccccc;
+  background-color: var(--theme-light-grey);
 }
 
 .footerDivider {
   display: block;
   width: 90%;
   height: 1px;
-  background-color: black;
+  background-color: rgb(65, 65, 65);
 }
 
 .footerLinks {
   width: 100vw;
   margin-left: 10vw;
+}
+
+.footerLinksHeader {
+  padding-bottom: 0.5rem;
 }

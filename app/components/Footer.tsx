@@ -27,19 +27,19 @@ const Footer = () => {
       <div className={`${styles.footerLinks}`}>
         <span className={`${styles.footerDivider} my-4`}></span>
         <div className={`flex flex-column`}>
-          <h3>Support</h3>
-          <a>Find Your Store</a>
-          <a>Contact Us</a>
-          <a>Delivery and Returns</a>
-          <a>Warhammer +</a>
+          <h3 className={styles.footerLinksHeader}>Support</h3>
+          <a className={`py-1`}>Find Your Store</a>
+          <a className={`py-1`}>Contact Us</a>
+          <a className={`py-1`}>Delivery and Returns</a>
+          <a className={`py-1`}>Warhammer +</a>
         </div>
         <span className={`${styles.footerDivider} my-4`}></span>
         <div className={`flex flex-column`}>
-          <h3>About Games Workshop</h3>
-          <a>Jobs at Games Workshop</a>
-          <a>Privacy Notice</a>
-          <a>Modern Slavery Statment</a>
-          <a>Cookies</a>
+          <h3 className={styles.footerLinksHeader}>About Games Workshop</h3>
+          <a className={`py-1`}>Jobs at Games Workshop</a>
+          <a className={`py-1`}>Privacy Notice</a>
+          <a className={`py-1`}>Modern Slavery Statment</a>
+          <a className={`py-1`}>Cookies</a>
         </div>
         <span className={`${styles.footerDivider} my-4`}></span>
       </div>

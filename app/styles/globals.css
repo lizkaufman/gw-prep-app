@@ -1,6 +1,11 @@
 :root {
   --font-heading-family: "Source Serif Pro", serif;
   --font-body-family: "Open Sans", sans-serif;
+  --theme-yellow: #efc11e;
+  --theme-light-grey: #cccccc;
+  --theme-dark-grey: rgb(65, 65, 65);
+
+  --button-gradient: linear-gradient(to right, #efc11e 0%, #f6e27e 100%);
 }
 
 * {
@@ -35,6 +40,18 @@ body {
 
 .justify-space-between {
   justify-content: space-between;
+}
+
+.justify-space-around {
+  justify-content: space-around;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
 }
 
 .align-center {
