@@ -1,7 +1,10 @@
 import { Source_Serif_Pro, Open_Sans } from "next/font/google";
 import Image from "next/image";
+
 import styles from "./styles/page.module.css";
 import heroImage from "./images/hero-image.webp";
+
+import Carousel from "./components/Carousel";
 
 // const noto_serif = Noto_Serif({ weight: "400", subsets: ["latin"] });
 const source_serif_pro = Source_Serif_Pro({
@@ -30,10 +33,11 @@ export default function Home() {
               Will you follow the Blood God or seek out the Prince of Pleasure?
             </p>
             <button
-              className={`${styles.ctaButton} py-2 px-3 mx-1 my-2`}
+              className={`${styles.ctaButton} py-2 px-3 my-3`}
             >{`Shop new Chaos models`}</button>
           </div>
         </div>
+        <Carousel />
       </main>
     </>
   );

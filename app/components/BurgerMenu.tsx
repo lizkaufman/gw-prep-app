@@ -7,7 +7,7 @@ interface BurgerMenuProps {
   toggleMenu: () => void;
 }
 
-function BurgerMenu({ toggleMenu }: BurgerMenuProps) {
+const BurgerMenu: React.FC<BurgerMenuProps> = ({ toggleMenu }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleMenuClick() {
@@ -31,6 +31,6 @@ function BurgerMenu({ toggleMenu }: BurgerMenuProps) {
       </div>
     </>
   );
-}
+};
 
 export default BurgerMenu;
