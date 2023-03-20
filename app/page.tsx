@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./styles/page.module.css";
 import heroImage from "./images/hero-image.webp";
 
-import Carousel from "./components/Carousel";
+import ItemContainer from "./components/itemCards/ItemContainer";
 
 // const noto_serif = Noto_Serif({ weight: "400", subsets: ["latin"] });
 const source_serif_pro = Source_Serif_Pro({
@@ -37,7 +37,7 @@ export default function Home() {
             >{`Shop new Chaos models`}</button>
           </div>
         </div>
-        <Carousel />
+        <ItemContainer />
       </main>
     </>
   );
