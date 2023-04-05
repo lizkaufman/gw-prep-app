@@ -22,19 +22,19 @@ export default function Home() {
         <div
           className={`${styles.ctaContainer} px-4 flex flex-column justify-space-between align-center`}
         >
-          <Image
-            src={heroImage}
-            alt="lord of hubris and realmgore ritualist models"
-            width={1300}
-          />
+          <div className={`${styles.heroImageContainer}`}>
+            <Image
+              className={styles.heroImage}
+              src={heroImage}
+              alt="lord of hubris and realmgore ritualist models"
+            />
+          </div>
           <div className={`${styles.textOverlay} px-2`}>
             <h2 className={`py-2`}>Which god will you serve?</h2>
-            <p>
-              Will you follow the Blood God or seek out the Prince of Pleasure?
-            </p>
+            <p>Will you seek out the Prince of Pleasure?</p>
             <button
               className={`${styles.ctaButton} py-2 px-3 my-3`}
-            >{`Shop new Chaos models`}</button>
+            >{`Shop Hedonites of Slaanesh`}</button>
           </div>
         </div>
         <ItemContainer />

@@ -4,8 +4,8 @@
 
 .ctaContainer {
   color: white;
-
-  width: 75%;
+  height: auto;
+  width: 100vw;
   align-self: flex-start;
   position: relative;
 }
@@ -19,9 +19,27 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  width: 100%;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.heroImage {
+  height: 90vh;
+}
+
+@media screen and (min-width: 450px) {
+  .textOverlay {
+    max-width: 50vw;
+  }
+  .heroImage {
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .textOverlay {
+    max-width: 30vw;
+  }
 }
 
 .ctaButton {
