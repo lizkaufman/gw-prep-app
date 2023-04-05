@@ -19,6 +19,10 @@ body {
   overflow-x: hidden;
 }
 
+.test {
+  border: solid 5px red;
+}
+
 /* Flexbox */
 
 .flex {
@@ -55,6 +59,10 @@ body {
 
 .align-center {
   align-items: center;
+}
+
+.align-start {
+  align-items: flex-start;
 }
 
 /* Heights and widths */

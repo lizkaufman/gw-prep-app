@@ -1,3 +1,4 @@
+"use client";
 import { Source_Serif_Pro, Open_Sans } from "next/font/google";
 import Image from "next/image";
 
@@ -5,6 +6,7 @@ import styles from "./styles/page.module.css";
 import heroImage from "./images/hero-image.webp";
 
 import ItemContainer from "./components/itemCards/ItemContainer";
+import Button from "./components/Button";
 
 // const noto_serif = Noto_Serif({ weight: "400", subsets: ["latin"] });
 const source_serif_pro = Source_Serif_Pro({
@@ -32,9 +34,12 @@ export default function Home() {
           <div className={`${styles.textOverlay} px-2`}>
             <h2 className={`py-2`}>Which god will you serve?</h2>
             <p>Will you seek out the Prince of Pleasure?</p>
-            <button
-              className={`${styles.ctaButton} py-2 px-3 my-3`}
-            >{`Shop Hedonites of Slaanesh`}</button>
+            <div className="my-4">
+              <Button
+                buttonText="Shop Hedonites of Slaanesh"
+                handleClick={() => console.log("shop hedonites button clicked")}
+              />
+            </div>
           </div>
         </div>
         <ItemContainer />

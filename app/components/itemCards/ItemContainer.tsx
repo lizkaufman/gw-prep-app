@@ -1,6 +1,7 @@
 import React from "react";
 import { ItemDetails } from "./interfaces";
 import ItemCard from "./ItemCard";
+import styles from "../../styles/itemCards.module.css";
 
 const exampleItemList: ItemDetails[] = [
   {
@@ -20,9 +21,21 @@ const exampleItemList: ItemDetails[] = [
   },
 ];
 
-// const ItemContainer: React.FC<ItemDetails[]> = () => {
 const ItemContainer: React.FC = () => {
-  return <ItemCard id={1} name={"test 1"} price={"£10"} />;
+  return (
+    <section className={`py-5 px-5 mx-5 ${styles.itemContainer}`}>
+      {exampleItemList.map((item: ItemDetails) => {
+        return (
+          <ItemCard
+            id={item.id}
+            name={item.name}
+            price={item.price}
+            key={item.id}
+          />
+        );
+      })}
+    </section>
+  );
 };
 
 export default ItemContainer;

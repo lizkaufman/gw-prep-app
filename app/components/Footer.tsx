@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import Button from "./Button";
 import styles from "../styles/footer.module.css";
 import Image from "next/image";
 import logo from "../images/Games_Workshop_logo.svg";
@@ -22,9 +24,16 @@ const Footer = () => {
           type="email"
           maxLength={75}
         />{" "}
-        <button className={`py-2 px-2 ${styles.emailSignupButton}`}>
+        {/* <button className={`py-2 px-2 ${styles.emailSignupButton}`}>
           Subscribe
-        </button>
+        </button> */}
+        <Button
+          buttonText="Subscribe"
+          handleClick={(e) => {
+            e?.preventDefault();
+            console.log("Email subscribe button");
+          }}
+        />
       </form>
       <div className={`${styles.footerLinks}`}>
         <span className={`${styles.footerDivider} my-4`}></span>

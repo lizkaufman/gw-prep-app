@@ -1,0 +1,14 @@
+.itemContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.itemCard {
+  max-width: 30em;
+}
+
+.productImage {
+  max-height: 10em;
+  width: auto;
+}
