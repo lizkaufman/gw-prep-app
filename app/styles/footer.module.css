@@ -2,11 +2,16 @@
   background-color: var(--theme-light-grey);
 }
 
+.footerDividerMobile,
 .footerDivider {
   display: block;
   width: 90%;
   height: 1px;
   background-color: rgb(65, 65, 65);
+}
+
+.footerDivider {
+  margin-top: 1.25em;
 }
 
 .footerLinks {
@@ -20,4 +25,18 @@
 
 .emailSignup {
   justify-self: flex-start;
+}
+
+@media screen and (min-width: 450px) {
+  .footerLinks {
+    width: 50vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-left: 0;
+  }
+
+  .footerDividerMobile {
+    display: none;
+  }
 }

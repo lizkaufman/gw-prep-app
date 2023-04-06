@@ -35,24 +35,24 @@ const Footer = () => {
           }}
         />
       </form>
-      <div className={`${styles.footerLinks}`}>
-        <span className={`${styles.footerDivider} my-4`}></span>
-        <div className={`flex flex-column`}>
+      <span className={`${styles.footerDivider} my-2`}></span>
+      <div className={`${styles.footerLinks} py-5`}>
+        <div className={`${styles.footerLinksSection} flex flex-column`}>
           <h3 className={styles.footerLinksHeader}>Support</h3>
           <a className={`py-1`}>Find Your Store</a>
           <a className={`py-1`}>Contact Us</a>
           <a className={`py-1`}>Delivery and Returns</a>
           <a className={`py-1`}>Warhammer +</a>
         </div>
-        <span className={`${styles.footerDivider} my-4`}></span>
-        <div className={`flex flex-column`}>
+        <span className={`${styles.footerDividerMobile} my-4`}></span>
+        <div className={`${styles.footerLinksSection} flex flex-column`}>
           <h3 className={styles.footerLinksHeader}>About Games Workshop</h3>
           <a className={`py-1`}>Jobs at Games Workshop</a>
           <a className={`py-1`}>Privacy Notice</a>
           <a className={`py-1`}>Modern Slavery Statment</a>
           <a className={`py-1`}>Cookies</a>
         </div>
-        <span className={`${styles.footerDivider} my-4`}></span>
+        <span className={`${styles.footerDividerMobile} my-4`}></span>
       </div>
       <Image alt="Games Workshop logo" src={logo} width={200} />
     </footer>

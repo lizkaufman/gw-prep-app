@@ -3,7 +3,7 @@ import React from "react";
 const secondPage = () => {
   return (
     <main>
-      <h1>second page</h1>
+      <h1>Coming soon!</h1>
     </main>
   );
 };
