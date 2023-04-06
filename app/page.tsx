@@ -1,4 +1,5 @@
 "use client";
+import { useRef } from "react";
 import { Source_Serif_Pro, Open_Sans } from "next/font/google";
 import Image from "next/image";
 
@@ -16,6 +17,8 @@ const source_serif_pro = Source_Serif_Pro({
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
 export default function Home() {
+  const targetRef = useRef<HTMLDivElement>(null);
+
   return (
     <>
       <main
@@ -37,12 +40,20 @@ export default function Home() {
             <div className="my-4">
               <Button
                 buttonText="Shop Hedonites of Slaanesh"
-                handleClick={() => console.log("shop hedonites button clicked")}
+                handleClick={() => {
+                  if (targetRef.current) {
+                    targetRef.current.scrollIntoView({
+                      behavior: "smooth",
+                    });
+                  }
+                }}
               />
             </div>
           </div>
         </div>
-        <ItemContainer />
+        <div ref={targetRef}>
+          <ItemContainer />
+        </div>
       </main>
     </>
   );
