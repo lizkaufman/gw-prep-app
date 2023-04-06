@@ -10,15 +10,15 @@ import placeholderImage from "../../images/placeholder.jpeg";
 const ItemCard: React.FC<ItemDetails> = ({ id, name, price, image }) => {
   return (
     <article
-      className={`flex flex-column align-start my-3 py-5 px-5 ${styles.itemCard}`}
+      className={`flex flex-column align-center justify-space-around mx-3 my-3 py-5 px-4 ${styles.itemCard}`}
     >
       <Image
-        src={placeholderImage}
+        src={image}
         alt={`product image for ${name}`}
         className={`${styles.productImage}`}
       />
-      <h3>{name}</h3>
-      <p>{price}</p>
+      <h3 className={`${styles.itemName}`}>{name}</h3>
+      <p className={`${styles.itemPrice}`}>{price}</p>
       <Button
         buttonText="Add to cart"
         handleClick={() => console.log(`Add to cart for ${name} pressed`)}

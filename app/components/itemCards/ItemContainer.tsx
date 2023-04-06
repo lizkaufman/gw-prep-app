@@ -2,6 +2,7 @@ import React from "react";
 import { ItemDetails } from "./interfaces";
 import ItemCard from "./ItemCard";
 import styles from "../../styles/itemCards.module.css";
+import itemData from "@/app/libs/itemData";
 
 const exampleItemList: ItemDetails[] = [
   {
@@ -24,13 +25,15 @@ const exampleItemList: ItemDetails[] = [
 const ItemContainer: React.FC = () => {
   return (
     <section className={`py-5 px-5 mx-5 ${styles.itemContainer}`}>
-      {exampleItemList.map((item: ItemDetails) => {
+      {itemData.map((item: ItemDetails) => {
+        // {exampleItemList.map((item: ItemDetails) => {
         return (
           <ItemCard
             id={item.id}
             name={item.name}
             price={item.price}
             key={item.id}
+            image={item.image}
           />
         );
       })}

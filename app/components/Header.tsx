@@ -23,7 +23,7 @@ const Header = () => {
         alt="games workshop logo"
         src={logo}
         className={`${styles.logo} py-4`}
-        width={200}
+        width={225}
       />
       <div>
         <Image
