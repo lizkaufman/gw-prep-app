@@ -41,3 +41,12 @@
     max-width: 30vw;
   }
 }
+
+@media screen and (min-width: 1900px) {
+  .textOverlay {
+    left: 30vw;
+  }
+  .heroImage {
+    width: 100vw;
+  }
+}
