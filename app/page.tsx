@@ -41,6 +41,7 @@ export default function Home() {
               <Button
                 buttonText="Shop Hedonites of Slaanesh"
                 handleClick={() => {
+                  console.log(targetRef);
                   if (targetRef.current) {
                     targetRef.current.scrollIntoView({
                       behavior: "smooth",

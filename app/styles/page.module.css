@@ -25,6 +25,14 @@
 
 .heroImage {
   height: 90vh;
+  width: auto;
+  padding-left: 200px;
+}
+
+@media screen and (max-width: 450px) {
+  .heroImage {
+    padding-left: 200px;
+  }
 }
 
 @media screen and (min-width: 450px) {
