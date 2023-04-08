@@ -3,10 +3,8 @@
 ## Resources used
 
 - [Next.js 13: Working with the new app directory](https://blog.logrocket.com/next-js-13-new-app-directory/)
-
-## Design inspiration
-
-- https://caddislife.com/
+- [Next.js docs on next/image](https://nextjs.org/docs/api-reference/next/image)
+- [React & XState Tutorial (Stately)](https://www.youtube.com/watch?v=wTFUVxaZol8&list=PLvWgkXBB3dd4ocSi17y1JmMmz7S5cV8vI&index=2)
 
 ## Original Next readme
 

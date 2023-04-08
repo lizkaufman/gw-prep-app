@@ -5,9 +5,14 @@ import Button from "../Button";
 import { ItemDetails } from "./interfaces";
 import styles from "../../styles/itemCards.module.css";
 
-import placeholderImage from "../../images/placeholder.jpeg";
-
-const ItemCard: React.FC<ItemDetails> = ({ id, name, price, image }) => {
+const ItemCard: React.FC<ItemDetails> = ({
+  id,
+  name,
+  price,
+  image,
+  send,
+  state,
+}) => {
   return (
     <article
       className={`flex flex-column align-center justify-space-around mx-3 my-3 py-5 px-4 ${styles.itemCard}`}
