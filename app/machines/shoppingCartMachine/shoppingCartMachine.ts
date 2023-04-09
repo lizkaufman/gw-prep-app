@@ -1,5 +1,5 @@
 import { createMachine, assign } from "xstate";
-import { ItemDetails } from "../components/itemCards/interfaces";
+import { ItemDetails } from "../../components/itemCards/interfaces";
 import { AddItemEvent, DeleteItemEvent } from "./interfaces";
 
 export const shoppingCartMachine = createMachine(
