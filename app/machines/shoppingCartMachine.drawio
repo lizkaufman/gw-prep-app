@@ -58,8 +58,10 @@
                 <mxCell id="10" value="Adding item" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="500" y="210" width="90" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="23" value="shoppingCartMachine" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="90" y="40" width="610" height="320" as="geometry"/>
+                <mxCell id="23" value="shoppingCartMachine" style="swimlane;whiteSpace=wrap;html=1;startSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="90" y="40" width="610" height="320" as="geometry">
+                        <mxRectangle x="90" y="40" width="170" height="30" as="alternateBounds"/>
+                    </mxGeometry>
                 </mxCell>
             </root>
         </mxGraphModel>

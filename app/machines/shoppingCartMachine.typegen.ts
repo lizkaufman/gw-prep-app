@@ -21,23 +21,25 @@ export interface Typegen0 {
     actions: never;
     delays: never;
     guards: never;
-    services: "Load cart";
+    services: never;
   };
   eventsCausingActions: {
+    "Add item to cart": "Add item";
     "Assign cart to context": "done.invoke.Shopping cart machine.Loading cart:invocation[0]";
     "Assign error to context": "error.platform.Shopping cart machine.Loading cart:invocation[0]";
+    "Remove item from cart": "Delete item";
   };
   eventsCausingDelays: {};
   eventsCausingGuards: {};
   eventsCausingServices: {
-    "Load cart": "xstate.init";
+    "Load cart": "Load cart" | "xstate.init";
   };
   matchesStates:
-    | "Adding item to cart"
-    | "Adding item to cart.new state 1"
+    | "Adding item"
     | "Cart loaded"
     | "Cart loading error"
-    | "Loading cart"
-    | { "Adding item to cart"?: "new state 1" };
+    | "Cart updated"
+    | "Deleting item"
+    | "Loading cart";
   tags: never;
 }

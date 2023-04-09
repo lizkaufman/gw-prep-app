@@ -1,9 +1,10 @@
 import { createMachine, assign } from "xstate";
 import { ItemDetails } from "../components/itemCards/interfaces";
+import { AddItemEvent, DeleteItemEvent } from "./interfaces";
 
 export const shoppingCartMachine = createMachine(
   {
-    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QAmAMwAWZgHZ3E28ANk8-AA5Pdz8ARk9ggBoQAE8Pb09mdwBOdwBWLPDvb3dwmMK-AF8KpJlsbgUqWnpGYTVOeq0+MHJydHJmTAAbUkoAMz6aZlq5HkUmlVb2ds1FHTxxfUM8S0tnW3tHPGc3BC93Zk8w8PdvGNyTExiizyTUhFLmbwjnp9y-XJiWVyVRqGDqK0ayhaLAAwnNBupIHwAIIQCCESjoBqUXZIED7BxbY6IYLRZiPEwAm5Zbw0ymvRCA4IXS4FTxA9zBPwFYJVaogPDoCBwZzTDpzKFMPZ2QlOPEnAC0iRSiCVIJAYohSmaqiWGlmVGlByJ8sQxQZCBpzDKhXCwWC91uwWu6s1Bu1C1h8MRECNsqOpoQIQy4RMdvuJgdT2dFqZzEi7Mit1D+Vy7ldYJm2Pm0OYcMaCOWRG6vXIfsOxKDRWYwS+NPCbJiEXCsZMGXSuWCWRid1KJi8lX5buzktaqP1hAcYBoGKxWnLJtAJz8sXJwRMsXZMRMQOCMVjWWZCbZHK5WSyGdk4shOrHaPqU5nmOxzGEAHdCLBKCMwIQYgu5SXRBSiyNcNzibsd07fcVVOSILibFduzKLtcmBPkgA */
+    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QAmACwB2ZgGYANk8AVm8ADi9vEyi-ABoQAE9EPxN3ZgBOMLCTYICARgiw-L8AXxL4mWxuBSpaekZhNU5qrT4wcnJ0cmZMABtSSgAzLppmSrkeRTqVRvZmzUUdPHF9QzxLS2dbe0c8ZzcESP8g0IifaJM4xI8TdOYs729MlPS-d3zPMoqMKoXa5QaLAAwlNeupIHwACJgXpgShgQgOMA0TZIEDbBxrfaIIJpW55PKeaLnGLxJIIPwpZhRMJvTyeN5+bwpYJfEDjFpTAGqEG1MGcCEAQQgEER8JR5i2dkxTjRB1xzHxhOJUVJ10O7mCzHc72CwSKYWCKXczLZHL+SnqqmhsIM8iRND4qJs0t22IQeRyfgyAXyms8WXcYTy7jJyTe2pMYXS3gDfgiuTCn3K7J+ExqlpmLGFGiIDqdkrRGLdcsQnqNPr9wQDhRDYY1AWpJvctyVRWC7jNac5-ytjV51AArpgIAMIXNRVpnejXVjSx6vZWQ9XA8HQ+rg8wA7lvPqCd4AruwmUU3h0BA4M5zZNe1mpTs56ADgBaAL119d2Q9zOApq5jP3jKezzp467kiaYTMIeARFFGtxvAEnYpteGbTL+A6EPyF4QIBJZPogAaNukISxnG7h+DuwT1nS1KvH4xFRmEsbBHkn6-DeP48qC6jVO0nTkLhj6uARwR3N4EGiZ4MYXFc4F+HkUGvHkgTuHkHa3OkARsemWhodaMJwtUDqCbK+EIOEvjiekalBMRypvuqKSWSG5GatG4l5N42nfnpjQ5kZ4omcBZnZFqbypDGXghp66T1i2aTkSYni+kmurKV5yHdhavnAlMw6jvCOFFrOpnCR6BRasySUhEUBR5EEcVBtqur6jBRqpKaJ5AA */
     id: "Shopping cart machine",
     //tsTypes line autogenerates the typegen file to make sure all types line up correctly
     tsTypes: {} as import("./shoppingCartMachine.typegen").Typegen0,
@@ -40,18 +41,30 @@ export const shoppingCartMachine = createMachine(
           ],
         },
       },
+
       "Cart loaded": {
         on: {
-          "Add to cart": "Adding item to cart",
+          "Delete item": "Deleting item",
+          "Add item": "Adding item",
         },
       },
-      "Cart loading error": {},
-      "Adding item to cart": {
-        states: {
-          "new state 1": {},
-        },
 
-        initial: "new state 1",
+      "Cart loading error": {},
+
+      "Deleting item": {
+        entry: "Remove item from cart",
+        always: "Cart updated",
+      },
+
+      "Adding item": {
+        entry: "Add item to cart",
+        always: "Cart updated",
+      },
+
+      "Cart updated": {
+        on: {
+          "Load cart": "Loading cart",
+        },
       },
     },
   },
@@ -73,6 +86,35 @@ export const shoppingCartMachine = createMachine(
           errorMessage: (event.data as Error).message,
         };
       }),
+      "Add item to cart": assign((context, event: AddItemEvent) => {
+        if (event.type === "Add item") {
+          return {
+            cartItems: [...context.cartItems, event.item],
+          };
+        }
+        return context;
+      }),
+      "Remove item from cart": assign((context, event: DeleteItemEvent) => {
+        if (event.type === "Delete item") {
+          return {
+            cartItems: context.cartItems.filter(
+              (item: any) => item.id !== event.itemId
+            ),
+          };
+        }
+        return context;
+      }),
+    },
+    services: {
+      "Load cart": (context, event) => {
+        // Here, you can simulate an async function that loads cart items.
+        // Replace this with a call to an actual API when you're ready.
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(context.cartItems);
+          }, 1000);
+        });
+      },
     },
   }
 );
