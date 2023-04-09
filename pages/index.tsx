@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Source_Serif_Pro, Open_Sans } from "next/font/google";
 import Image from "next/image";
 
@@ -20,7 +20,12 @@ const open_sans = Open_Sans({ subsets: ["latin"] });
 
 export default function Home() {
   const targetRef = useRef<HTMLDivElement>(null);
-  // const { state, send } = useShoppingCart();
+
+  const { state, send } = useShoppingCart();
+
+  useEffect(() => {
+    console.log(state.context);
+  }, [state]);
 
   return (
     <main
@@ -55,7 +60,7 @@ export default function Home() {
         </div>
       </div>
       <div ref={targetRef}>
-        <ItemContainer />
+        <ItemContainer send={send} />
       </div>
     </main>
   );

@@ -6,18 +6,13 @@ import itemData from "@/libs/data/itemData";
 
 import ItemCard from "./ItemCard";
 
-import { useMachine } from "@xstate/react";
-import { shoppingCartMachine } from "@/libs/machines/shoppingCartMachine/shoppingCartMachine";
+import { Event, EventObject } from "xstate";
 
-const ItemContainer: React.FC = () => {
-  const [state, send] = useMachine(shoppingCartMachine, {
-    services: {
-      "Load cart": async () => {
-        return itemData;
-      },
-    },
-  });
+interface ItemContainerProps {
+  send?: (event: EventObject) => void;
+}
 
+const ItemContainer: React.FC<ItemContainerProps> = ({ send }) => {
   return (
     <section className={`py-5 px-5 mx-5 ${styles.itemContainer}`}>
       {itemData.map((item: ItemDetails) => {
@@ -29,6 +24,7 @@ const ItemContainer: React.FC = () => {
             price={item.price}
             key={item.id}
             image={item.image}
+            send={send}
           />
         );
       })}

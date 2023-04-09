@@ -1,18 +1,11 @@
 "use client";
 import React from "react";
-import Image, { ImageProps } from "next/image";
+import Image from "next/image";
 import Button from "../Button";
 import { ItemDetails } from "./interfaces";
 import styles from "../../styles/itemCards.module.css";
 
-const ItemCard: React.FC<ItemDetails> = ({
-  id,
-  name,
-  price,
-  image,
-  send,
-  state,
-}) => {
+const ItemCard: React.FC<ItemDetails> = ({ id, name, price, image, send }) => {
   return (
     <article
       className={`flex flex-column align-center justify-space-around mx-3 my-3 py-5 px-4 ${styles.itemCard}`}
@@ -26,7 +19,10 @@ const ItemCard: React.FC<ItemDetails> = ({
       <p className={`${styles.itemPrice}`}>{price}</p>
       <Button
         buttonText="Add to cart"
-        handleClick={() => console.log(`Add to cart for ${name} pressed`)}
+        handleClick={() => {
+          send({ type: "Add item", item: { id, name, price, image } });
+          console.log(`Add to cart for ${name} pressed`);
+        }}
       />
     </article>
   );
