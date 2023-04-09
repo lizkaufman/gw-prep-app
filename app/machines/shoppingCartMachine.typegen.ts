@@ -32,6 +32,12 @@ export interface Typegen0 {
   eventsCausingServices: {
     "Load cart": "xstate.init";
   };
-  matchesStates: "Cart loaded" | "Cart loading error" | "Loading cart";
+  matchesStates:
+    | "Adding item to cart"
+    | "Adding item to cart.new state 1"
+    | "Cart loaded"
+    | "Cart loading error"
+    | "Loading cart"
+    | { "Adding item to cart"?: "new state 1" };
   tags: never;
 }

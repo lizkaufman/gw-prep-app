@@ -6,6 +6,10 @@
 - [Next.js docs on next/image](https://nextjs.org/docs/api-reference/next/image)
 - [React & XState Tutorial (Stately)](https://www.youtube.com/watch?v=wTFUVxaZol8&list=PLvWgkXBB3dd4ocSi17y1JmMmz7S5cV8vI&index=2)
 
+## State machine plan
+
+![](./app/machines/shoppingCartMachine.png)
+
 ## Original Next readme
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).

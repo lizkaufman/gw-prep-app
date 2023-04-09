@@ -20,9 +20,6 @@ const ItemContainer: React.FC = () => {
 
   return (
     <section className={`py-5 px-5 mx-5 ${styles.itemContainer}`}>
-      {state.context.cartItems.map((item) => (
-        <p key={item.id}>{item.name}</p>
-      ))}
       {itemData.map((item: ItemDetails) => {
         // {exampleItemList.map((item: ItemDetails) => {
         return (

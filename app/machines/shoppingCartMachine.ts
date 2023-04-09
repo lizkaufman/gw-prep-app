@@ -3,7 +3,7 @@ import { ItemDetails } from "../components/itemCards/interfaces";
 
 export const shoppingCartMachine = createMachine(
   {
-    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QAmAMzvmnzwHYADncAFgBGAFYTEzCQkM8AGhAAT0RAsOYQoLjPWIj-CLCATgiAX1KkmWxuBSpaekZhNU4arT4wcnJ0cmZMABtSSgAzbppmKrkeRXqVJvYWzUUdPHF9QzxLS2dbe0c8ZzcEd1DfEMCios8IwM8ANhN0wKTUo7CTZgvg92vAkOOs9zlCogPDoCBwZwTVrTZSNMDbOwOdYHRAAWluzzRt3KlQw1UWdVhqnmGimVARu2RSFciD+mIQRRCzDCgV+gVutyi4VuwRxIChBKUDVUAGFpn11JAKUinNTDnEmbcsozzjcwkEnilEG9PJkrrcimFIukTF5scCBWShbMWGK6hKFkQOl1yNK9iiECF7swIt4SoF-GdAiZPJqXu4wrdmP4igbY0a-P53KagaUgA */
+    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QAmAMwAWZgHZ3E28ANk8-AA5Pdz8ARk9ggBoQAE8Pb09mdwBOdwBWLPDvb3dwmMK-AF8KpJlsbgUqWnpGYTVOeq0+MHJydHJmTAAbUkoAMz6aZlq5HkUmlVb2ds1FHTxxfUM8S0tnW3tHPGc3BC93Zk8w8PdvGNyTExiizyTUhFLmbwjnp9y-XJiWVyVRqGDqK0ayhaLAAwnNBupIHwAIIQCCESjoBqUXZIED7BxbY6IYLRZiPEwAm5Zbw0ymvRCA4IXS4FTxA9zBPwFYJVaogPDoCBwZzTDpzKFMPZ2QlOPEnAC0iRSiCVIJAYohSmaqiWGlmVGlByJ8sQxQZCBpzDKhXCwWC91uwWu6s1Bu1C1h8MRECNsqOpoQIQy4RMdvuJgdT2dFqZzEi7Mit1D+Vy7ldYJm2Pm0OYcMaCOWRG6vXIfsOxKDRWYwS+NPCbJiEXCsZMGXSuWCWRid1KJi8lX5buzktaqP1hAcYBoGKxWnLJtAJz8sXJwRMsXZMRMQOCMVjWWZCbZHK5WSyGdk4shOrHaPqU5nmOxzGEAHdCLBKCMwIQYgu5SXRBSiyNcNzibsd07fcVVOSILibFduzKLtcmBPkgA */
     id: "Shopping cart machine",
     //tsTypes line autogenerates the typegen file to make sure all types line up correctly
     tsTypes: {} as import("./shoppingCartMachine.typegen").Typegen0,
@@ -24,6 +24,7 @@ export const shoppingCartMachine = createMachine(
       "Loading cart": {
         invoke: {
           //invoke a service that's passed in where useMachine is called
+          //service is async and returns a promise
           src: "Load cart",
           onDone: [
             {
@@ -39,8 +40,19 @@ export const shoppingCartMachine = createMachine(
           ],
         },
       },
-      "Cart loaded": {},
+      "Cart loaded": {
+        on: {
+          "Add to cart": "Adding item to cart",
+        },
+      },
       "Cart loading error": {},
+      "Adding item to cart": {
+        states: {
+          "new state 1": {},
+        },
+
+        initial: "new state 1",
+      },
     },
   },
   {
