@@ -3,16 +3,28 @@ import { AppProps } from "next/app";
 import "../styles/globals.css";
 import RootLayout from "../components/RootLayout";
 
-import { ShoppingCartProvider } from "../libs/machines/shoppingCartMachine/shoppingCartContext";
+import {
+  ShoppingCartProvider,
+  useShoppingCart,
+} from "../libs/machines/shoppingCartMachine/shoppingCartContext";
 
-const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+  // const App = ({ Component, pageProps }: AppProps) => {
+  const { state, send } = useShoppingCart();
+
   return (
-    <ShoppingCartProvider>
-      <RootLayout>
-        <Component {...pageProps} />
-      </RootLayout>
-    </ShoppingCartProvider>
+    <RootLayout>
+      <Component {...pageProps} cartState={state} cartSend={send} />
+    </RootLayout>
   );
 };
 
-export default MyApp;
+function AppWithProvider(props: AppProps) {
+  return (
+    <ShoppingCartProvider>
+      <App {...props} />
+    </ShoppingCartProvider>
+  );
+}
+
+export default AppWithProvider;

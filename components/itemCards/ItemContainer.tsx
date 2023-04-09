@@ -9,10 +9,10 @@ import ItemCard from "./ItemCard";
 import { Event, EventObject } from "xstate";
 
 interface ItemContainerProps {
-  send?: (event: EventObject) => void;
+  cartSend?: (event: EventObject) => void;
 }
 
-const ItemContainer: React.FC<ItemContainerProps> = ({ send }) => {
+const ItemContainer: React.FC<ItemContainerProps> = ({ cartSend }) => {
   return (
     <section className={`py-5 px-5 mx-5 ${styles.itemContainer}`}>
       {itemData.map((item: ItemDetails) => {
@@ -24,7 +24,7 @@ const ItemContainer: React.FC<ItemContainerProps> = ({ send }) => {
             price={item.price}
             key={item.id}
             image={item.image}
-            send={send}
+            cartSend={cartSend}
           />
         );
       })}

@@ -5,7 +5,13 @@ import Button from "../Button";
 import { ItemDetails } from "./interfaces";
 import styles from "../../styles/itemCards.module.css";
 
-const ItemCard: React.FC<ItemDetails> = ({ id, name, price, image, send }) => {
+const ItemCard: React.FC<ItemDetails> = ({
+  id,
+  name,
+  price,
+  image,
+  cartSend,
+}) => {
   return (
     <article
       className={`flex flex-column align-center justify-space-around mx-3 my-3 py-5 px-4 ${styles.itemCard}`}
@@ -20,7 +26,7 @@ const ItemCard: React.FC<ItemDetails> = ({ id, name, price, image, send }) => {
       <Button
         buttonText="Add to cart"
         handleClick={() => {
-          send({ type: "Add item", item: { id, name, price, image } });
+          cartSend({ type: "Add item", item: { id, name, price, image } });
           console.log(`Add to cart for ${name} pressed`);
         }}
       />

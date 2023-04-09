@@ -3,6 +3,6 @@ export interface ItemDetails {
   name: string;
   price: string;
   image?: any;
-  send?: any;
+  cartSend?: any;
   state?: any;
 }

@@ -18,14 +18,14 @@ const source_serif_pro = Source_Serif_Pro({
 });
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({
+  cartState,
+  cartSend,
+}: {
+  cartState: any;
+  cartSend: any;
+}) {
   const targetRef = useRef<HTMLDivElement>(null);
-
-  const { state, send } = useShoppingCart();
-
-  useEffect(() => {
-    console.log(state.context);
-  }, [state]);
 
   return (
     <main
@@ -60,7 +60,7 @@ export default function Home() {
         </div>
       </div>
       <div ref={targetRef}>
-        <ItemContainer send={send} />
+        <ItemContainer cartSend={cartSend} />
       </div>
     </main>
   );
