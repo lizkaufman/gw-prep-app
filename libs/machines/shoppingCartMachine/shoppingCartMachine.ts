@@ -1,11 +1,12 @@
 import { createMachine, assign } from "xstate";
-import { ItemDetails } from "../../components/itemCards/interfaces";
+import { ItemDetails } from "../../../components/itemCards/interfaces";
 import { AddItemEvent, DeleteItemEvent } from "./interfaces";
 
 export const shoppingCartMachine = createMachine(
   {
     /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QAmACwB2ZgGYANk8AVm8ADi9vEyi-ABoQAE9EPxN3ZgBOMLCTYICARgiw-L8AXxL4mWxuBSpaekZhNU5qrT4wcnJ0cmZMABtSSgAzLppmSrkeRTqVRvZmzUUdPHF9QzxLS2dbe0c8ZzcESP8g0IifaJM4xI8TdOYs729MlPS-d3zPMoqMKoXa5QaLAAwlNeupIHwACJgXpgShgQgOMA0TZIEDbBxrfaIIJpW55PKeaLnGLxJIIPwpZhRMJvTyeN5+bwpYJfEDjFpTAGqEG1MGcCEAQQgEER8JR5i2dkxTjRB1xzHxhOJUVJ10O7mCzHc72CwSKYWCKXczLZHL+SnqqmhsIM8iRND4qJs0t22IQeRyfgyAXyms8WXcYTy7jJyTe2pMYXS3gDfgiuTCn3K7J+ExqlpmLGFGiIDqdkrRGLdcsQnqNPr9wQDhRDYY1AWpJvctyVRWC7jNac5-ytjV51AArpgIAMIXNRVpnejXVjSx6vZWQ9XA8HQ+rg8wA7lvPqCd4AruwmUU3h0BA4M5zZNe1mpTs56ADgBaAL119d2Q9zOApq5jP3jKezzp467kiaYTMIeARFFGtxvAEnYpteGbTL+A6EPyF4QIBJZPogAaNukISxnG7h+DuwT1nS1KvH4xFRmEsbBHkn6-DeP48qC6jVO0nTkLhj6uARwR3N4EGiZ4MYXFc4F+HkUGvHkgTuHkHa3OkARsemWhodaMJwtUDqCbK+EIOEvjiekalBMRypvuqKSWSG5GatG4l5N42nfnpjQ5kZ4omcBZnZFqbypDGXghp66T1i2aTkSYni+kmurKV5yHdhavnAlMw6jvCOFFrOpnCR6BRasySUhEUBR5EEcVBtqur6jBRqpKaJ5AA */
     id: "Shopping cart machine",
+    predictableActionArguments: true,
     //tsTypes line autogenerates the typegen file to make sure all types line up correctly
     tsTypes: {} as import("./shoppingCartMachine.typegen").Typegen0,
     schema: {

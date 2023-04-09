@@ -1,4 +1,4 @@
-import { ItemDetails } from "../components/itemCards/interfaces";
+import { ItemDetails } from "../../components/itemCards/interfaces";
 import productImages from "../images/products";
 
 const {

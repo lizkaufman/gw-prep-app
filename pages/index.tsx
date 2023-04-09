@@ -3,11 +3,13 @@ import { useRef } from "react";
 import { Source_Serif_Pro, Open_Sans } from "next/font/google";
 import Image from "next/image";
 
-import styles from "./styles/page.module.css";
-import heroImage from "./images/hero-image.webp";
+import styles from "../styles/page.module.css";
+import heroImage from "../libs/images/hero-image.webp";
 
-import ItemContainer from "./components/itemCards/ItemContainer";
-import Button from "./components/Button";
+import ItemContainer from "../components/itemCards/ItemContainer";
+import Button from "../components/Button";
+
+import { useShoppingCart } from "../libs/machines/shoppingCartMachine/shoppingCartContext";
 
 // const noto_serif = Noto_Serif({ weight: "400", subsets: ["latin"] });
 const source_serif_pro = Source_Serif_Pro({
@@ -18,6 +20,7 @@ const open_sans = Open_Sans({ subsets: ["latin"] });
 
 export default function Home() {
   const targetRef = useRef<HTMLDivElement>(null);
+  // const { state, send } = useShoppingCart();
 
   return (
     <main

@@ -2,12 +2,12 @@ import React from "react";
 
 import { ItemDetails } from "./interfaces";
 import styles from "../../styles/itemCards.module.css";
-import itemData from "@/app/libs/itemData";
+import itemData from "@/libs/data/itemData";
 
 import ItemCard from "./ItemCard";
 
 import { useMachine } from "@xstate/react";
-import { shoppingCartMachine } from "@/app/machines/shoppingCartMachine/shoppingCartMachine";
+import { shoppingCartMachine } from "@/libs/machines/shoppingCartMachine/shoppingCartMachine";
 
 const ItemContainer: React.FC = () => {
   const [state, send] = useMachine(shoppingCartMachine, {
