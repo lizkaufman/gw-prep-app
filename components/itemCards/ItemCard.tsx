@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import Image from "next/image";
 import Button from "../Button";
 import { ItemDetails } from "./interfaces";
@@ -12,6 +12,15 @@ const ItemCard: React.FC<ItemDetails> = ({
   image,
   cartSend,
 }) => {
+  const handleAddItem = useCallback(() => {
+    console.log(`cartSend for item ${id}`);
+    cartSend({
+      type: "Add item",
+      item: { id, name, price, image },
+      timestamp: Date.now(),
+    });
+  }, [cartSend, id, name, price, image]);
+
   return (
     <article
       className={`flex flex-column align-center justify-space-around mx-3 my-3 py-5 px-4 ${styles.itemCard}`}
@@ -23,13 +32,7 @@ const ItemCard: React.FC<ItemDetails> = ({
       />
       <h3 className={`${styles.itemName}`}>{name}</h3>
       <p className={`${styles.itemPrice}`}>{price}</p>
-      <Button
-        buttonText="Add to cart"
-        handleClick={() => {
-          cartSend({ type: "Add item", item: { id, name, price, image } });
-          console.log(`Add to cart for ${name} pressed`);
-        }}
-      />
+      <Button buttonText="Add to cart" handleClick={handleAddItem} />
     </article>
   );
 };

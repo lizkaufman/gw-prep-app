@@ -32,13 +32,12 @@ export interface Typegen0 {
   eventsCausingDelays: {};
   eventsCausingGuards: {};
   eventsCausingServices: {
-    "Load cart": "Load cart" | "xstate.init";
+    "Load cart": "xstate.init";
   };
   matchesStates:
     | "Adding item"
     | "Cart loaded"
     | "Cart loading error"
-    | "Cart updated"
     | "Deleting item"
     | "Loading cart";
   tags: never;

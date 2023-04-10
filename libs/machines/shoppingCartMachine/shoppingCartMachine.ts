@@ -4,7 +4,7 @@ import { AddItemEvent, DeleteItemEvent } from "./interfaces";
 
 export const shoppingCartMachine = createMachine(
   {
-    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QAmACwB2ZgGYANk8AVm8ADi9vEyi-ABoQAE9EPxN3ZgBOMLCTYICARgiw-L8AXxL4mWxuBSpaekZhNU5qrT4wcnJ0cmZMABtSSgAzLppmSrkeRTqVRvZmzUUdPHF9QzxLS2dbe0c8ZzcESP8g0IifaJM4xI8TdOYs729MlPS-d3zPMoqMKoXa5QaLAAwlNeupIHwACJgXpgShgQgOMA0TZIEDbBxrfaIIJpW55PKeaLnGLxJIIPwpZhRMJvTyeN5+bwpYJfEDjFpTAGqEG1MGcCEAQQgEER8JR5i2dkxTjRB1xzHxhOJUVJ10O7mCzHc72CwSKYWCKXczLZHL+SnqqmhsIM8iRND4qJs0t22IQeRyfgyAXyms8WXcYTy7jJyTe2pMYXS3gDfgiuTCn3K7J+ExqlpmLGFGiIDqdkrRGLdcsQnqNPr9wQDhRDYY1AWpJvctyVRWC7jNac5-ytjV51AArpgIAMIXNRVpnejXVjSx6vZWQ9XA8HQ+rg8wA7lvPqCd4AruwmUU3h0BA4M5zZNe1mpTs56ADgBaAL119d2Q9zOApq5jP3jKezzp467kiaYTMIeARFFGtxvAEnYpteGbTL+A6EPyF4QIBJZPogAaNukISxnG7h+DuwT1nS1KvH4xFRmEsbBHkn6-DeP48qC6jVO0nTkLhj6uARwR3N4EGiZ4MYXFc4F+HkUGvHkgTuHkHa3OkARsemWhodaMJwtUDqCbK+EIOEvjiekalBMRypvuqKSWSG5GatG4l5N42nfnpjQ5kZ4omcBZnZFqbypDGXghp66T1i2aTkSYni+kmurKV5yHdhavnAlMw6jvCOFFrOpnCR6BRasySUhEUBR5EEcVBtqur6jBRqpKaJ5AA */
+    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QAmAOwBmZiYCsACwAbJ6B7gAcYSZhngA0IACeiACMYcz+Ef4AnN4RKdnB3jERgQC+ZQky2NwKVLT0jMJqnLVafGDk5OjkzJgANqSUAGY9NMzVcjyKDSrN7K2aijp44vqGeJaWzrb2jnjObghevgEhYZHRsQnJCPnMgVmh-p7+OSYxnhVVGDVL9comiwAMIzfrqSB8AAiYH6YEoYEIDjANG2SBAuwcG0OiGCoWYnnyaUC-ncJm8-gKNw8+OCEWCZJMRVCKUC2XKlRAkzaM0BqlB9XBnEhAEEIBAkQjUeYdnYsU50UcKZ5mN4UhFsllNWrsuz4kkaSq6QyPszPKzst8ub8pnUlI1VGKNERkTQ+AAlWHqO1omxy-Y4hDeTzZZjZc05c1FbzB-zUoMRCLMOla7wsxM+YIVTl4dAQODObn-e1zMCyvbYxWIAC0wXjtb8Hw+lPVwfybytRemAId83UPKo5flByrCE8RuyH2yKXVJ3H+tu7L8gXViZSJhSpJ8EU7NoHJaBzAF1CF+YgQ4Do7ZgTDupNgR8K+yXnj7jpzHVJqZafN193sn3WZD2PQhT1qTpunIC9K1AI5Hn8B40mfSJ2WCUkinjddfHcacPnpHIZ08GJ-z+bsD1UGE4QMeRXWghVYMQfJfCfWc101N9X0CG9gknEwohSbxnyjEjbS0IDHXFWpaPRTFLwYhBwlfTIP3JTx3C49cwiybMyiAA */
     id: "Shopping cart machine",
     predictableActionArguments: true,
     //tsTypes line autogenerates the typegen file to make sure all types line up correctly
@@ -54,17 +54,13 @@ export const shoppingCartMachine = createMachine(
 
       "Deleting item": {
         entry: "Remove item from cart",
-        always: "Cart updated",
       },
 
       "Adding item": {
         entry: "Add item to cart",
-        always: "Cart updated",
-      },
 
-      "Cart updated": {
         on: {
-          "Load cart": "Loading cart",
+          "Reload cart": "Cart loaded",
         },
       },
     },
@@ -88,11 +84,14 @@ export const shoppingCartMachine = createMachine(
         };
       }),
       "Add item to cart": assign((context, event: AddItemEvent) => {
+        console.log("add item action in machine");
         if (event.type === "Add item") {
-          return {
+          const newContext: any = {
             ...context,
             cartItems: [...context.cartItems, event.item],
           };
+          console.log({ newContext });
+          return newContext;
         }
         return context;
       }),
