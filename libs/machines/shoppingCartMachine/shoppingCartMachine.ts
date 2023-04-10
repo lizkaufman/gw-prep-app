@@ -116,6 +116,21 @@ export const shoppingCartMachine = createMachine(
 
       "Remove item from cart": assign((context, event: DeleteItemEvent) => {
         if (event.type === "Delete item") {
+          const itemQuantity = context.cartItems.filter(
+            (item: any) => item.id === event.itemId
+          )[0].quantity;
+
+          if (itemQuantity && itemQuantity > 1) {
+            return {
+              ...context,
+              cartItems: context.cartItems.map((item) =>
+                item.id === Number(event.itemId)
+                  ? { ...item, quantity: (item.quantity || 1) - 1 }
+                  : item
+              ),
+            };
+          }
+
           return {
             ...context,
             cartItems: context.cartItems.filter(
