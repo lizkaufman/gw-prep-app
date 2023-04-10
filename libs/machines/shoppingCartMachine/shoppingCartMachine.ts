@@ -89,15 +89,31 @@ export const shoppingCartMachine = createMachine(
       "Add item to cart": assign((context, event: AddItemEvent) => {
         console.log("add item action in machine");
         if (event.type === "Add item") {
-          const newContext: any = {
-            ...context,
-            cartItems: [...context.cartItems, event.item],
-          };
-          console.log({ newContext });
-          return newContext;
+          const itemExistsInCart = context.cartItems.some(
+            (item) => item.name === event.item.name
+          );
+
+          if (itemExistsInCart) {
+            // If the item exists in the cart, update its quantity
+            return {
+              ...context,
+              cartItems: context.cartItems.map((item) =>
+                item.name === event.item.name
+                  ? { ...item, quantity: (item.quantity || 1) + 1 }
+                  : item
+              ),
+            };
+          } else {
+            // If the item doesn't exist in the cart, add it with a quantity of 1
+            return {
+              ...context,
+              cartItems: [...context.cartItems, { ...event.item, quantity: 1 }],
+            };
+          }
         }
         return context;
       }),
+
       "Remove item from cart": assign((context, event: DeleteItemEvent) => {
         if (event.type === "Delete item") {
           return {

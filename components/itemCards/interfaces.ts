@@ -5,4 +5,5 @@ export interface ItemDetails {
   image?: any;
   cartSend?: any;
   state?: any;
+  quantity?: number;
 }

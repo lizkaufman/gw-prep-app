@@ -24,6 +24,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, cartSend }) => {
       <div
         className={`flex flex-row justify-space-between align-center ${styles.itemInfo}`}
       >
+        {item.quantity && <p>x{item.quantity}</p>}
         <p>{item.price}</p>
         <Button buttonText="x" handleClick={handleDeleteItem} />
       </div>
