@@ -3,6 +3,7 @@ import React from "react";
 import Button from "./Button";
 import styles from "../styles/footer.module.css";
 import Image from "next/image";
+import Link from "next/link";
 import logos from "../libs/images/logos";
 
 const Footer = () => {
@@ -54,11 +55,13 @@ const Footer = () => {
         </div>
         <span className={`${styles.footerDividerMobile} my-4`}></span>
       </div>
-      <Image
-        alt="Games Workshop logo"
-        src={logos.gamesWorkshopLogo}
-        width={200}
-      />
+      <Link href="/">
+        <Image
+          alt="Games Workshop logo"
+          src={logos.gamesWorkshopLogo}
+          width={200}
+        />
+      </Link>
     </footer>
   );
 };

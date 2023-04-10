@@ -1,4 +1,7 @@
 import React from "react";
+import Button from "@/components/Button";
+import CartItemsContainer from "@/components/cartItems/CartItemsContainer";
+import styles from "../styles/cartItems.module.css";
 
 const ViewCart = ({
   cartState,
@@ -7,12 +10,21 @@ const ViewCart = ({
   cartState: any;
   cartSend: any;
 }) => {
-  console.log(cartState.context);
-
   return (
-    <main>
-      <h1>Your Shopping Cart</h1>
-      <p>{JSON.stringify(cartState.context.cartItems)}</p>
+    <main
+      className={`flex flex-column  justify-space-around py-5 ${styles.cartPage}`}
+    >
+      <h1>Your Cart</h1>
+      <CartItemsContainer
+        cartItems={cartState.context.cartItems}
+        cartSend={cartSend}
+      />
+      <Button
+        handleClick={() => {
+          console.log("check out button");
+        }}
+        buttonText="Check out"
+      />
     </main>
   );
 };

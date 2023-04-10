@@ -1,0 +1,25 @@
+.cartPage {
+  align-items: center;
+}
+
+.cartItemsContainer {
+  width: 90%;
+}
+
+.cartItem {
+  height: 4em;
+}
+
+.itemInfo {
+  width: 25%;
+}
+
+@media screen and (min-width: 400px) {
+  .cartItemsContainer {
+    width: 40%;
+    margin: 0 auto;
+  }
+  .cartPage {
+    align-items: center;
+  }
+}
