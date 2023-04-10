@@ -13,11 +13,11 @@ const CartItem: React.FC<CartItemProps> = ({ item, cartSend }) => {
     <article
       className={`flex flex-row align-center justify-space-between  ${styles.cartItem}`}
     >
-      <h3>{item.name}</h3>
+      <p>{item.name}</p>
       <div
         className={`flex flex-row justify-space-between align-center ${styles.itemInfo}`}
       >
-        <h3>{item.price}</h3>
+        <p>{item.price}</p>
         <Button
           buttonText="x"
           handleClick={() => {
