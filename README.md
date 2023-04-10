@@ -1,14 +1,20 @@
 # Games Workshop - simple site
 
+This is a highly simplified version of the Games Workshop e-commerce site to help me prepare for my next role as mid FE dev.
+
+## Goals and progress
+
+- Limber up my dev skills ✅
+- Re-learn the basics of Next.js ✅
+- Make a state machine with XState ✅
+- Learn Playwright
+- Deploy with AWS and Github Actions
+
 ## Resources used
 
 - [Next.js 13: Working with the new app directory](https://blog.logrocket.com/next-js-13-new-app-directory/)
 - [Next.js docs on next/image](https://nextjs.org/docs/api-reference/next/image)
 - [React & XState Tutorial (Stately)](https://www.youtube.com/watch?v=wTFUVxaZol8&list=PLvWgkXBB3dd4ocSi17y1JmMmz7S5cV8vI&index=2)
-
-## State machine plan
-
-![](./app/machines/shoppingCartMachine.png)
 
 ## Original Next readme
 
