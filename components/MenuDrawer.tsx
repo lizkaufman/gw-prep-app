@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import logos from "../images/logos/";
+import logos from "../libs/images/logos";
 import styles from "../styles/burgerMenu.module.css";
 
 const MenuDrawer = () => {

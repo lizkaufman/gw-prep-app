@@ -21,6 +21,11 @@
   margin-bottom: 1em;
 }
 
+.zoomedImageContainer {
+  z-index: 9999;
+  position: relative;
+}
+
 /* Mobile phone */
 @media screen and (max-width: 450px) {
   .itemCard {
@@ -30,6 +35,9 @@
   .productImage {
     width: 80vw;
     height: auto;
+  }
+  .zoomedImageContainer {
+    display: none;
   }
 }
 

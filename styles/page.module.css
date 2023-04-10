@@ -48,6 +48,14 @@
   .textOverlay {
     max-width: 30vw;
   }
+  .heroImage {
+    padding: 0;
+    height: 90vh;
+    width: auto;
+  }
+  .ctaContainer {
+    padding: 0;
+  }
 }
 
 @media screen and (min-width: 1900px) {

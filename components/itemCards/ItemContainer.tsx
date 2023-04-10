@@ -1,28 +1,18 @@
 import React from "react";
+
 import { ItemDetails } from "./interfaces";
-import ItemCard from "./ItemCard";
 import styles from "../../styles/itemCards.module.css";
-import itemData from "@/app/libs/itemData";
+import itemData from "@/libs/data/itemData";
 
-const exampleItemList: ItemDetails[] = [
-  {
-    id: 1,
-    name: "test 1",
-    price: "£10",
-  },
-  {
-    id: 2,
-    name: "test 2",
-    price: "£20",
-  },
-  {
-    id: 3,
-    name: "test 3",
-    price: "£30",
-  },
-];
+import ItemCard from "./ItemCard";
 
-const ItemContainer: React.FC = () => {
+import { Event, EventObject } from "xstate";
+
+interface ItemContainerProps {
+  cartSend?: (event: EventObject) => void;
+}
+
+const ItemContainer: React.FC<ItemContainerProps> = ({ cartSend }) => {
   return (
     <section className={`py-5 px-5 mx-5 ${styles.itemContainer}`}>
       {itemData.map((item: ItemDetails) => {
@@ -34,6 +24,7 @@ const ItemContainer: React.FC = () => {
             price={item.price}
             key={item.id}
             image={item.image}
+            cartSend={cartSend}
           />
         );
       })}

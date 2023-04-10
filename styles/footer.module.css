@@ -27,7 +27,7 @@
   justify-self: flex-start;
 }
 
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 830px) {
   .footerLinks {
     width: 50vw;
     display: flex;
