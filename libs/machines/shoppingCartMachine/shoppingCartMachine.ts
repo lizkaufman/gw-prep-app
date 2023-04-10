@@ -1,10 +1,10 @@
-import { createMachine, assign } from "xstate";
+import { createMachine, assign, AnyEventObject } from "xstate";
 import { ItemDetails } from "../../../components/itemCards/interfaces";
-import { AddItemEvent, DeleteItemEvent } from "./interfaces";
+import { AddItemEvent, DeleteItemEvent, EmptyCartEvent } from "./interfaces";
 
 export const shoppingCartMachine = createMachine(
   {
-    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QAmAOwBmZiYCsACwAbMFB-ibegQCM3gA0IACeiNGegcz+ABz+AJyhXibB0dH+-gC+ZQky2NwKVLT0jMJqnLVafGDk5OjkzJgANqSUAGY9NMzVcjyKDSrN7K2aijp44vqGeJaWzrb2jnjObghevgEhYYERUbEJyQiZ0cyB2cGZ7pnBJoVZ7hVVGDUlvVlE0WABhGb9dSQPgAETA-TAlDAhAcYBo2yQIF2Dg2h0QoU8zE8D28n0yOSyJhy0VuHmCRNewXcgTyDxKPkCfxAkzaMxBqgh9ShnBhAEEIBBUciMeYdnZcU4sUdvP4id5ojkTO5vJkTJ5PAzPHTjgzmEyWWzimqotzeUClI1VBKNEQ0TQ+C5YJQhixSMNkeQABQRACUfHt02BTuaLtq7sxNgV+3xxx8fiCoXCkRi8SSiA1mWYqSygUChRyaS53Lw6AgcGckbqjrmYHlezxysQAFpgibe3aAVNm7NQS1Xc324qDl2EAbzVrqWE8tEKZcTTl0iYYhS0u4WZ5oq9B7I+dHW8whdQRfWIFOU7PWekci-PO5V5kNTk3ib3K9ix8lqvNanInoCUYtmOV6EDetSdN05D3p2oBHM8-hPKuJjRO436ZJ4ORRCa0SRMwOHESch7bv4qpgcOWijqo8KIgY8jukhSooYgpIYZuJLuF8Xibr+ZYLlh-hFEUJRYcEtFnpBzqSvGMrsTOnEIIE7i-lkxaRCSwTeC+7hXNWFRAA */
+    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QBmAEzvmATgDs-gCsAIwhACwAbCEm-pG+ADQgAJ6IIf4AHMwh3uERJr4ZeQC+xUky2NwKVLT0jMJqnFVafGDk5OjkzJgANqSUAGadNMwVcjyKtSoN7E2aijp44vqGeJaWzrb2jnjObghePgHBYVExcYkpiBkhzOEZQZGRmZ4m7oUZ-qXlGJXzNcp6iwAMKTHrqSB8AAiYB6YEoYEIDjANA2SBAWwcqz2Hl8Pmih38IXc4XcISCGSSqQQpM8zFi7xM4X8ngiNze3xAY2ak0BqlBNXBnEhAEEIBAkQjUeZNnYsU50fs8rdfOkyRFfEFfNrvFTEJ5-OFmHEwv4TGEDWavmUub9xtUlHV+WCIRA+ABRGiYSjJB1omxynY4hCGo4UyLuILhEwZSLhIJ6g5m7JM+7BXyeDLuEyeIKc7n-R3TFgwuEGeTImh8FywSj9FikAYI8gACiCJgAlHwCxMAU6GqX4VVK-6MYHsYqPN4-IFQhForF4on3Fn6e44sF7jlAhH83aeX3i8wxRoiJXq7X68xG82253u-vC1MgcfxcOpaPMUHJwdp8c52ci6XNSXiRH4ni+HGnwrjcGZ7rIB5Fi+nreskiEXnWCLXk2bR3l2PYOs+qgoT6iGfuOCqgPs6b0hkEH+OuDHRniy6svSkR0XkZLRuSTKlDaeDoBAcDOARWhEcIsrbBOVGIAAtJEiYKfSJiqWp6lqdaPwIU+fIzOoiFSfKuw-jktwhDcWbPJGsYFP4ia+EajyBOEmpxu2mrhPBfy9khzqCq6RnfrJCCPGBqnrhkhSaiShqsUEzCxpGrmRG8NykpE3n2uJekgi6cxEG0HTkEFMmuIgQRRswoTuF4EThBB4SuYmMRGp4rxkrGRTaiEmpZYhEklrCQ4VlKpWUeVNKeMuDF+A8TxBOuZJzv1un9iwJ7vii40mSFq54q5WbMlFTJkomnhxsawSZhEQSsiE8Srb5g3MCRaGFjtwZRbc8bMpEi25n97jLjk9IPe12oZFDTUZPxxRAA */
     id: "Shopping cart machine",
     predictableActionArguments: true,
     //tsTypes line autogenerates the typegen file to make sure all types line up correctly
@@ -47,6 +47,7 @@ export const shoppingCartMachine = createMachine(
         on: {
           "Delete item": "Deleting item",
           "Add item": "Adding item",
+          "Empty cart": "Emptying cart",
         },
       },
 
@@ -66,6 +67,13 @@ export const shoppingCartMachine = createMachine(
         },
         //Having the after property adds a delay of 50ms before transitioning back to cart loaded. This means that you can add multiple items to the cart and give it time to transition back to cart loaded. (This solves the issue of only being able to add one item to the cart.)
       },
+
+      "Emptying cart": {
+        entry: "Empty cart",
+        after: {
+          50: "Cart loaded",
+        },
+      },
     },
   },
   {
@@ -81,11 +89,13 @@ export const shoppingCartMachine = createMachine(
           cartItems: event.data,
         };
       }),
+
       "Assign error to context": assign((context, event) => {
         return {
           errorMessage: (event.data as Error).message,
         };
       }),
+
       "Add item to cart": assign((context, event: AddItemEvent) => {
         console.log("add item action in machine");
         if (event.type === "Add item") {
@@ -136,6 +146,16 @@ export const shoppingCartMachine = createMachine(
             cartItems: context.cartItems.filter(
               (item: any) => item.id !== event.itemId
             ),
+          };
+        }
+        return context;
+      }),
+
+      "Empty cart": assign((context, event: EmptyCartEvent) => {
+        if (event.type === "Empty cart") {
+          return {
+            ...context,
+            cartItems: [],
           };
         }
         return context;

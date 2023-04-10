@@ -40,7 +40,11 @@ const ViewCart = ({
         <Link href="/">
           <Button buttonText="Keep shopping" handleClick={() => {}} />
         </Link>
-        {total > 0 && <Button handleClick={() => {}} buttonText="Check out" />}
+        {total > 0 && (
+          <Link href="/checkout">
+            <Button handleClick={() => {}} buttonText="Check out" />
+          </Link>
+        )}
       </div>
     </main>
   );

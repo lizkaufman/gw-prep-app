@@ -10,3 +10,7 @@ export interface DeleteItemEvent extends AnyEventObject {
   type: "Delete item";
   itemId: string;
 }
+
+export interface EmptyCartEvent extends AnyEventObject {
+  type: "Empty cart";
+}

@@ -9,7 +9,6 @@ import {
 } from "../libs/machines/shoppingCartMachine/shoppingCartContext";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
-  // const App = ({ Component, pageProps }: AppProps) => {
   const { state, send } = useShoppingCart();
 
   return (

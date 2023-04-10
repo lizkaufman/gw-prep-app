@@ -18,6 +18,9 @@ export interface Typegen0 {
     "xstate.after(50)#Shopping cart machine.Deleting item": {
       type: "xstate.after(50)#Shopping cart machine.Deleting item";
     };
+    "xstate.after(50)#Shopping cart machine.Emptying cart": {
+      type: "xstate.after(50)#Shopping cart machine.Emptying cart";
+    };
     "xstate.init": { type: "xstate.init" };
   };
   invokeSrcNameMap: {
@@ -33,6 +36,7 @@ export interface Typegen0 {
     "Add item to cart": "Add item";
     "Assign cart to context": "done.invoke.Shopping cart machine.Loading cart:invocation[0]";
     "Assign error to context": "error.platform.Shopping cart machine.Loading cart:invocation[0]";
+    "Empty cart": "Empty cart";
     "Remove item from cart": "Delete item";
   };
   eventsCausingDelays: {};
@@ -45,6 +49,7 @@ export interface Typegen0 {
     | "Cart loaded"
     | "Cart loading error"
     | "Deleting item"
+    | "Emptying cart"
     | "Loading cart";
   tags: never;
 }

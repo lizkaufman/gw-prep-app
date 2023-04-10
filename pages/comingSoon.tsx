@@ -1,6 +1,6 @@
 import React from "react";
 
-const secondPage = () => {
+const ComingSoonPage = () => {
   return (
     <main>
       <h1>Coming soon!</h1>
@@ -8,4 +8,4 @@ const secondPage = () => {
   );
 };
 
-export default secondPage;
+export default ComingSoonPage;

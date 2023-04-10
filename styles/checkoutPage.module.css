@@ -1,0 +1,12 @@
+.checkoutPage {
+  margin: 1em;
+}
+
+.checkoutPageHeader,
+.totalDisplay {
+  margin-bottom: 1em;
+}
+
+.itemsPurchasedList {
+  margin: 1em;
+}
