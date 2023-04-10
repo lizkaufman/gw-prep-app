@@ -90,6 +90,7 @@ export const shoppingCartMachine = createMachine(
       "Add item to cart": assign((context, event: AddItemEvent) => {
         if (event.type === "Add item") {
           return {
+            ...context,
             cartItems: [...context.cartItems, event.item],
           };
         }
