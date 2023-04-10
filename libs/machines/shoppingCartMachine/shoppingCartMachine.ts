@@ -54,6 +54,9 @@ export const shoppingCartMachine = createMachine(
 
       "Deleting item": {
         entry: "Remove item from cart",
+        after: {
+          50: "Cart loaded",
+        },
       },
 
       "Adding item": {
@@ -98,6 +101,7 @@ export const shoppingCartMachine = createMachine(
       "Remove item from cart": assign((context, event: DeleteItemEvent) => {
         if (event.type === "Delete item") {
           return {
+            ...context,
             cartItems: context.cartItems.filter(
               (item: any) => item.id !== event.itemId
             ),

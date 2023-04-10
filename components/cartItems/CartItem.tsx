@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { ItemDetails } from "../itemCards/interfaces";
 import Button from "../Button";
 import styles from "../../styles/cartItems.module.css";
@@ -9,6 +9,13 @@ interface CartItemProps {
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item, cartSend }) => {
+  const handleDeleteItem = useCallback(() => {
+    cartSend({
+      type: "Delete item",
+      itemId: item.id,
+    });
+  }, [cartSend, item.id]);
+
   return (
     <article
       className={`flex flex-row align-center justify-space-between  ${styles.cartItem}`}
@@ -18,12 +25,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, cartSend }) => {
         className={`flex flex-row justify-space-between align-center ${styles.itemInfo}`}
       >
         <p>{item.price}</p>
-        <Button
-          buttonText="x"
-          handleClick={() => {
-            console.log(`Delete button pressed for ${item.name}`);
-          }}
-        />
+        <Button buttonText="x" handleClick={handleDeleteItem} />
       </div>
     </article>
   );

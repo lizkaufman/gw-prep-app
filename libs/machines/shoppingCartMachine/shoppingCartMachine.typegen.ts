@@ -15,6 +15,9 @@ export interface Typegen0 {
     "xstate.after(50)#Shopping cart machine.Adding item": {
       type: "xstate.after(50)#Shopping cart machine.Adding item";
     };
+    "xstate.after(50)#Shopping cart machine.Deleting item": {
+      type: "xstate.after(50)#Shopping cart machine.Deleting item";
+    };
     "xstate.init": { type: "xstate.init" };
   };
   invokeSrcNameMap: {
