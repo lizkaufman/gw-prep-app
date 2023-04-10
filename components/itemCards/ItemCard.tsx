@@ -13,6 +13,7 @@ const ItemCard: React.FC<ItemDetails> = ({
   cartSend,
 }) => {
   const handleAddItem = useCallback(() => {
+    //memoized here to avoid creating new functions in each render (which can cause unnecessary re-renders and issues with stale closures)
     console.log(`cartSend for item ${id}`);
     cartSend({
       type: "Add item",
