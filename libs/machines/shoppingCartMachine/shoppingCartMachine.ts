@@ -4,7 +4,7 @@ import { AddItemEvent, DeleteItemEvent } from "./interfaces";
 
 export const shoppingCartMachine = createMachine(
   {
-    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QAmAOwBmZiYCsACwAbJ6B7gAcYSZhngA0IACeiACMYcz+Ef4AnN4RKdnB3jERgQC+ZQky2NwKVLT0jMJqnLVafGDk5OjkzJgANqSUAGY9NMzVcjyKDSrN7K2aijp44vqGeJaWzrb2jnjObghevgEhYZHRsQnJCPnMgVmh-p7+OSYxnhVVGDVL9comiwAMIzfrqSB8AAiYH6YEoYEIDjANG2SBAuwcG0OiGCoWYnnyaUC-ncJm8-gKNw8+OCEWCZJMRVCKUC2XKlRAkzaM0BqlB9XBnEhAEEIBAkQjUeYdnYsU50UcKZ5mN4UhFsllNWrsuz4kkaSq6QyPszPKzst8ub8pnUlI1VGKNERkTQ+AAlWHqO1omxy-Y4hDeTzZZjZc05c1FbzB-zUoMRCLMOla7wsxM+YIVTl4dAQODObn-e1zMCyvbYxWIAC0wXjtb8Hw+lPVwfybytRemAId83UPKo5flByrCE8RuyH2yKXVJ3H+tu7L8gXViZSJhSpJ8EU7NoHJaBzAF1CF+YgQ4Do7ZgTDupNgR8K+yXnj7jpzHVJqZafN193sn3WZD2PQhT1qTpunIC9K1AI5Hn8B40mfSJ2WCUkinjddfHcacPnpHIZ08GJ-z+bsD1UGE4QMeRXWghVYMQfJfCfWc101N9X0CG9gknEwohSbxnyjEjbS0IDHXFWpaPRTFLwYhBwlfTIP3JTx3C49cwiybMyiAA */
+    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QAmAOwBmZiYCsACwAbMFB-ibegQCM3gA0IACeiNGegcz+ABz+AJyhXibB0dH+-gC+ZQky2NwKVLT0jMJqnLVafGDk5OjkzJgANqSUAGY9NMzVcjyKDSrN7K2aijp44vqGeJaWzrb2jnjObghevgEhYYERUbEJyQiZ0cyB2cGZ7pnBJoVZ7hVVGDUlvVlE0WABhGb9dSQPgAETA-TAlDAhAcYBo2yQIF2Dg2h0QoU8zE8D28n0yOSyJhy0VuHmCRNewXcgTyDxKPkCfxAkzaMxBqgh9ShnBhAEEIBBUciMeYdnZcU4sUdvP4id5ojkTO5vJkTJ5PAzPHTjgzmEyWWzimqotzeUClI1VBKNEQ0TQ+C5YJQhixSMNkeQABQRACUfHt02BTuaLtq7sxNgV+3xxx8fiCoXCkRi8SSiA1mWYqSygUChRyaS53Lw6AgcGckbqjrmYHlezxysQAFpgibe3aAVNm7NQS1Xc324qDl2EAbzVrqWE8tEKZcTTl0iYYhS0u4WZ5oq9B7I+dHW8whdQRfWIFOU7PWekci-PO5V5kNTk3ib3K9ix8lqvNanInoCUYtmOV6EDetSdN05D3p2oBHM8-hPKuJjRO436ZJ4ORRCa0SRMwOHESch7bv4qpgcOWijqo8KIgY8jukhSooYgpIYZuJLuF8Xibr+ZYLlh-hFEUJRYcEtFnpBzqSvGMrsTOnEIIE7i-lkxaRCSwTeC+7hXNWFRAA */
     id: "Shopping cart machine",
     predictableActionArguments: true,
     //tsTypes line autogenerates the typegen file to make sure all types line up correctly
@@ -58,10 +58,10 @@ export const shoppingCartMachine = createMachine(
 
       "Adding item": {
         entry: "Add item to cart",
-
-        on: {
-          "Reload cart": "Cart loaded",
+        after: {
+          50: "Cart loaded",
         },
+        //Having the after property adds a delay of 50ms before transitioning back to cart loaded. This means that you can add multiple items to the cart and give it time to transition back to cart loaded. (This solves the issue of only being able to add one item to the cart.)
       },
     },
   },

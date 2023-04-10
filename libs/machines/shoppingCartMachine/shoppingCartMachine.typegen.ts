@@ -12,6 +12,9 @@ export interface Typegen0 {
       type: "error.platform.Shopping cart machine.Loading cart:invocation[0]";
       data: unknown;
     };
+    "xstate.after(50)#Shopping cart machine.Adding item": {
+      type: "xstate.after(50)#Shopping cart machine.Adding item";
+    };
     "xstate.init": { type: "xstate.init" };
   };
   invokeSrcNameMap: {
