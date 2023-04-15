@@ -1,17 +1,19 @@
 import { createMachine, assign, AnyEventObject } from "xstate";
 import { ItemDetails } from "../../../components/itemCards/interfaces";
-import { AddItemEvent, DeleteItemEvent, EmptyCartEvent } from "./interfaces";
+import cartActions from "./actions";
+
+const { ADD_ITEM, DELETE_ITEM, EMPTY_CART } = cartActions;
 
 export const shoppingCartMachine = createMachine(
   {
-    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QBmAEzvmATgDs-gCsAIwhACwAbCEm-pG+ADQgAJ6IIf4AHMwh3uERJr4ZeQC+xUky2NwKVLT0jMJqnFVafGDk5OjkzJgANqSUAGadNMwVcjyKtSoN7E2aijp44vqGeJaWzrb2jnjObghePgHBYVExcYkpiBkhzOEZQZGRmZ4m7oUZ-qXlGJXzNcp6iwAMKTHrqSB8AAiYB6YEoYEIDjANA2SBAWwcqz2Hl8Pmih38IXc4XcISCGSSqQQpM8zFi7xM4X8ngiNze3xAY2ak0BqlBNXBnEhAEEIBAkQjUeZNnYsU50fs8rdfOkyRFfEFfNrvFTEJ5-OFmHEwv4TGEDWavmUub9xtUlHV+WCIRA+ABRGiYSjJB1omxynY4hCGo4UyLuILhEwZSLhIJ6g5m7JM+7BXyeDLuEyeIKc7n-R3TFgwuEGeTImh8FywSj9FikAYI8gACiCJgAlHwCxMAU6GqX4VVK-6MYHsYqPN4-IFQhForF4on3Fn6e44sF7jlAhH83aeX3i8wxRoiJXq7X68xG82253u-vC1MgcfxcOpaPMUHJwdp8c52ci6XNSXiRH4ni+HGnwrjcGZ7rIB5Fi+nreskiEXnWCLXk2bR3l2PYOs+qgoT6iGfuOCqgPs6b0hkEH+OuDHRniy6svSkR0XkZLRuSTKlDaeDoBAcDOARWhEcIsrbBOVGIAAtJEiYKfSJiqWp6lqdaPwIU+fIzOoiFSfKuw-jktwhDcWbPJGsYFP4ia+EajyBOEmpxu2mrhPBfy9khzqCq6RnfrJCCPGBqnrhkhSaiShqsUEzCxpGrmRG8NykpE3n2uJekgi6cxEG0HTkEFMmuIgQRRswoTuF4EThBB4SuYmMRGp4rxkrGRTaiEmpZYhEklrCQ4VlKpWUeVNKeMuDF+A8TxBOuZJzv1un9iwJ7vii40mSFq54q5WbMlFTJkomnhxsawSZhEQSsiE8Srb5g3MCRaGFjtwZRbc8bMpEi25n97jLjk9IPe12oZFDTUZPxxRAA */
+    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QBWAIwAWZgDYATndvAHZ3AGYADnCAJk93SIAaEABPRE8AmOZMgMiQk3c-P3CvXIBfMuSZbG4FKlp6RmE1TlqtPjBycnRyZkwAG1JKADMemmZquR5FBpVm9lbNRR08cX1DPEtLZ1t7RzxnNwRwz3DmDJNPEPDAyMiggOS0hEjPZm9I729AmJNImLCAIqVQwNSW9WUTRYAGEZv11JA+AARMD9MCUMCEBxgGjbJAgXYODaHRDhEIBbI+bwZdzuExfEpPRDUikxGI3PzUvwheLfdzAkCTNozSGqWH1eGcREAQQgECxGNx5h2diJTnxR3CARC70KNx5JzpuSZCBi3OYMUiJjJlvclringFQvBSkaYrhCIgfAAojRMJQUnVKHibKr9iSEDydZEIuSea9PCYQt4TSUKZzPH5ItyQiE-PFwk7QVMg7MocwUWiDPJsTQ+C5YJQhixSMMMeQABR0gCUfGd0whbualfRtVrIYJYeJGtJp3OAUu11u93cj1SpJ5zDCwXc+VX3gSeaLsmFg7mLFlGiItfrjebzFb7a7Jl7-dLoual7HionhPDM+OOcLiuG5chXNdnhOHVt08TMFxMJM7j8Y8wQHV1z2YX1-RSU9KFvJsMQfNtOmfV9i1wstVCwgNcN-Kd1VAI5riycIvkuS14lyWlU08LIQNCAIigCAIMhKCpKhAPB0AgOBnDfLRKOEFU9mnRjEAAWj8E11PcbJhOEvJim8ExBJ8FCSwUj8WAWK8g2UtUDgA2Do28AJWNpPx2PyCDEDc7JvEtL4-CNQogQk+SRSHGEPSlCB7P-NSEGCPx3h5ALuTNbNYh4lLk28cI-jzViPjNcyKKs5hxWoSVbM6bpyHi1TXEQIrmH+JM6QyXifCSdcEGc95wiifKRuKTN+XC8iXUUlgR2ra9FUahjmoQALU2Kc5gvzOkYzCE4yumiqvxrRb8T-Jqjn+c58h8WCYm1Ew4h801d38NyrW1KNci+A60JmzC-Rol0lscxLsxMecgiidkFw+FM+oKs4EhuMlAj8OIbnEsogA */
     id: "Shopping cart machine",
     predictableActionArguments: true,
     //tsTypes line autogenerates the typegen file to make sure all types line up correctly
     tsTypes: {} as import("./shoppingCartMachine.typegen").Typegen0,
     schema: {
       services: {
-        "Load cart": {} as {
+        LOAD_CART: {} as {
           data: ItemDetails[];
         },
       },
@@ -21,66 +23,66 @@ export const shoppingCartMachine = createMachine(
       cartItems: [] as ItemDetails[],
       errorMessage: undefined as string | undefined,
     },
-    initial: "Loading cart",
+    initial: "LOADING_CART",
     states: {
-      "Loading cart": {
+      LOADING_CART: {
         invoke: {
           //invoke a service that's passed in where useMachine is called
           //service is async and returns a promise
-          src: "Load cart",
+          src: "LOAD_CART",
           onDone: [
             {
-              target: "Cart loaded",
-              actions: "Assign cart to context",
+              target: "CART_LOADED",
+              actions: "ASSIGN_CART_TO_CONTEXT",
             },
           ],
           onError: [
             {
-              target: "Cart loading error",
-              actions: "Assign error to context",
+              target: "CART_LOADING_ERROR",
+              actions: "ASSIGN_ERROR_TO_CONTEXT",
             },
           ],
         },
       },
 
-      "Cart loaded": {
+      CART_LOADED: {
         on: {
-          "Delete item": "Deleting item",
-          "Add item": "Adding item",
-          "Empty cart": "Emptying cart",
+          DELETE_ITEM: "DELETING_ITEM",
+          ADD_ITEM: "ADDING_ITEM",
+          EMPTY_CART: "EMPTYING_CART",
         },
       },
 
-      "Cart loading error": {},
+      CART_LOADING_ERROR: {},
 
-      "Deleting item": {
-        entry: "Remove item from cart",
+      DELETING_ITEM: {
+        //entry - thing happens, and then it pings back to cart loaded after that artificial 50ms...
+        //whether that entry action fails or succeeds, we don't know!
+        //and then the after has to force it back to the cart loaded state
+        entry: "DELETE_ITEM",
         after: {
-          50: "Cart loaded",
+          50: "CART_LOADED",
         },
       },
 
-      "Adding item": {
-        entry: "Add item to cart",
+      ADDING_ITEM: {
+        entry: "ADD_ITEM",
         after: {
-          50: "Cart loaded",
+          50: "CART_LOADED",
         },
-        //Having the after property adds a delay of 50ms before transitioning back to cart loaded. This means that you can add multiple items to the cart and give it time to transition back to cart loaded. (This solves the issue of only being able to add one item to the cart.)
       },
 
-      "Emptying cart": {
-        entry: "Empty cart",
+      EMPTYING_CART: {
+        entry: "EMPTY_CART",
         after: {
-          50: "Cart loaded",
+          50: "CART_LOADED",
         },
       },
     },
   },
   {
     actions: {
-      //actions are ways to do things that are synchronous or take 0 time
-      //vs services which are async!
-      "Assign cart to context": assign((context, event) => {
+      ASSIGN_CART_TO_CONTEXT: assign((context, event) => {
         //assign is one of Xstate's built-in actions to add things to context
         //this function tells Xstate what to do to assign
         //in assign callback fn, always need to return a partial of the new context
@@ -89,80 +91,17 @@ export const shoppingCartMachine = createMachine(
           cartItems: event.data,
         };
       }),
-
-      "Assign error to context": assign((context, event) => {
+      ASSIGN_ERROR_TO_CONTEXT: assign((context, event) => {
         return {
           errorMessage: (event.data as Error).message,
         };
       }),
-
-      "Add item to cart": assign((context, event: AddItemEvent) => {
-        console.log("add item action in machine");
-        if (event.type === "Add item") {
-          const itemExistsInCart = context.cartItems.some(
-            (item) => item.name === event.item.name
-          );
-
-          if (itemExistsInCart) {
-            // If the item exists in the cart, update its quantity
-            return {
-              ...context,
-              cartItems: context.cartItems.map((item) =>
-                item.name === event.item.name
-                  ? { ...item, quantity: (item.quantity || 1) + 1 }
-                  : item
-              ),
-            };
-          } else {
-            // If the item doesn't exist in the cart, add it with a quantity of 1
-            return {
-              ...context,
-              cartItems: [...context.cartItems, { ...event.item, quantity: 1 }],
-            };
-          }
-        }
-        return context;
-      }),
-
-      "Remove item from cart": assign((context, event: DeleteItemEvent) => {
-        if (event.type === "Delete item") {
-          const itemQuantity = context.cartItems.filter(
-            (item: any) => item.id === event.itemId
-          )[0].quantity;
-
-          if (itemQuantity && itemQuantity > 1) {
-            return {
-              ...context,
-              cartItems: context.cartItems.map((item) =>
-                item.id === Number(event.itemId)
-                  ? { ...item, quantity: (item.quantity || 1) - 1 }
-                  : item
-              ),
-            };
-          }
-
-          return {
-            ...context,
-            cartItems: context.cartItems.filter(
-              (item: any) => item.id !== event.itemId
-            ),
-          };
-        }
-        return context;
-      }),
-
-      "Empty cart": assign((context, event: EmptyCartEvent) => {
-        if (event.type === "Empty cart") {
-          return {
-            ...context,
-            cartItems: [],
-          };
-        }
-        return context;
-      }),
+      ADD_ITEM,
+      DELETE_ITEM,
+      EMPTY_CART,
     },
     services: {
-      "Load cart": (context, event) => {
+      LOAD_CART: (context, event) => {
         // Here, you can simulate an async function that loads cart items.
         // Replace this with a call to an actual API when you're ready.
         return new Promise((resolve, reject) => {

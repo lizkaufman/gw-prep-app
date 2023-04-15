@@ -38,7 +38,7 @@ const CheckoutPage = ({
         <Button
           buttonText="Shop again"
           handleClick={() => {
-            cartSend({ type: "Empty cart" });
+            cartSend({ type: "EMPTY_CART" });
           }}
         />
       </Link>

@@ -11,7 +11,7 @@ interface CartItemProps {
 const CartItem: React.FC<CartItemProps> = ({ item, cartSend }) => {
   const handleDeleteItem = useCallback(() => {
     cartSend({
-      type: "Delete item",
+      type: "DELETE_ITEM",
       itemId: item.id,
     });
   }, [cartSend, item.id]);

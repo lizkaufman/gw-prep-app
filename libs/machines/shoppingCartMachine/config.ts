@@ -1,0 +1,18 @@
+export const states = {
+  LOADING_CART: "LOADING_CART",
+  CART_LOADED: "CART_LOADED",
+  CART_LOADING_ERROR: "CART_LOADING_ERROR",
+  DELETING_ITEM: "DELETING_ITEM",
+  ADDING_ITEM: "ADDING_ITEM",
+  EMPTYING_CART: "EMPTYING_CART",
+};
+
+export const services = {
+  LOAD_CART: "LOAD_CART",
+};
+
+export const eventTypes = {
+  ADD_ITEM: "ADD_ITEM",
+  DELETE_ITEM: "DELETE_ITEM",
+  EMPTY_CART: "EMPTY_CART",
+};

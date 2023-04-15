@@ -5,9 +5,10 @@ This is a highly simplified version of the Games Workshop e-commerce site to hel
 ## Goals and progress
 
 - Limber up my dev skills ✅
+- Create a mobile-first, responsive site ✅
 - Re-learn the basics of Next.js ✅
 - Make a state machine with XState ✅
-- Learn Playwright
+- Test the main journeys with Playwright
 - Deploy with AWS and Github Actions
 
 ## Resources used

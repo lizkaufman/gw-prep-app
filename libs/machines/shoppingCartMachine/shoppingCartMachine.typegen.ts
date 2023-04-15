@@ -3,28 +3,28 @@
 export interface Typegen0 {
   "@@xstate/typegen": true;
   internalEvents: {
-    "done.invoke.Shopping cart machine.Loading cart:invocation[0]": {
-      type: "done.invoke.Shopping cart machine.Loading cart:invocation[0]";
+    "done.invoke.Shopping cart machine.LOADING_CART:invocation[0]": {
+      type: "done.invoke.Shopping cart machine.LOADING_CART:invocation[0]";
       data: unknown;
       __tip: "See the XState TS docs to learn how to strongly type this.";
     };
-    "error.platform.Shopping cart machine.Loading cart:invocation[0]": {
-      type: "error.platform.Shopping cart machine.Loading cart:invocation[0]";
+    "error.platform.Shopping cart machine.LOADING_CART:invocation[0]": {
+      type: "error.platform.Shopping cart machine.LOADING_CART:invocation[0]";
       data: unknown;
     };
-    "xstate.after(50)#Shopping cart machine.Adding item": {
-      type: "xstate.after(50)#Shopping cart machine.Adding item";
+    "xstate.after(50)#Shopping cart machine.ADDING_ITEM": {
+      type: "xstate.after(50)#Shopping cart machine.ADDING_ITEM";
     };
-    "xstate.after(50)#Shopping cart machine.Deleting item": {
-      type: "xstate.after(50)#Shopping cart machine.Deleting item";
+    "xstate.after(50)#Shopping cart machine.DELETING_ITEM": {
+      type: "xstate.after(50)#Shopping cart machine.DELETING_ITEM";
     };
-    "xstate.after(50)#Shopping cart machine.Emptying cart": {
-      type: "xstate.after(50)#Shopping cart machine.Emptying cart";
+    "xstate.after(50)#Shopping cart machine.EMPTYING_CART": {
+      type: "xstate.after(50)#Shopping cart machine.EMPTYING_CART";
     };
     "xstate.init": { type: "xstate.init" };
   };
   invokeSrcNameMap: {
-    "Load cart": "done.invoke.Shopping cart machine.Loading cart:invocation[0]";
+    LOAD_CART: "done.invoke.Shopping cart machine.LOADING_CART:invocation[0]";
   };
   missingImplementations: {
     actions: never;
@@ -33,23 +33,23 @@ export interface Typegen0 {
     services: never;
   };
   eventsCausingActions: {
-    "Add item to cart": "Add item";
-    "Assign cart to context": "done.invoke.Shopping cart machine.Loading cart:invocation[0]";
-    "Assign error to context": "error.platform.Shopping cart machine.Loading cart:invocation[0]";
-    "Empty cart": "Empty cart";
-    "Remove item from cart": "Delete item";
+    ADD_ITEM: "ADD_ITEM";
+    ASSIGN_CART_TO_CONTEXT: "done.invoke.Shopping cart machine.LOADING_CART:invocation[0]";
+    ASSIGN_ERROR_TO_CONTEXT: "error.platform.Shopping cart machine.LOADING_CART:invocation[0]";
+    DELETE_ITEM: "DELETE_ITEM";
+    EMPTY_CART: "EMPTY_CART";
   };
   eventsCausingDelays: {};
   eventsCausingGuards: {};
   eventsCausingServices: {
-    "Load cart": "xstate.init";
+    LOAD_CART: "xstate.init";
   };
   matchesStates:
-    | "Adding item"
-    | "Cart loaded"
-    | "Cart loading error"
-    | "Deleting item"
-    | "Emptying cart"
-    | "Loading cart";
+    | "ADDING_ITEM"
+    | "CART_LOADED"
+    | "CART_LOADING_ERROR"
+    | "DELETING_ITEM"
+    | "EMPTYING_CART"
+    | "LOADING_CART";
   tags: never;
 }
