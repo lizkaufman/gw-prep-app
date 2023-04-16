@@ -112,6 +112,7 @@ export const shoppingCartMachine = createMachine(
         };
       }),
       ASSIGN_ERROR_TO_CONTEXT: assign((context, event) => {
+        console.error(event.data);
         return {
           errorMessage: (event.data as Error).message,
         };
@@ -138,7 +139,7 @@ export const shoppingCartMachine = createMachine(
             const cartItems = [...context.cartItems];
 
             const existingItem = cartItems.find(
-              (item) => item.name === item.name
+              (cartItem) => cartItem.name === item.name
             );
             console.log({ item, existingItem });
             //Creates a reference to the existing item. Anything changed will be reflected within the cartItems array too.
