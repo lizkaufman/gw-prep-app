@@ -8,7 +8,15 @@ This is a highly simplified version of the Games Workshop e-commerce site to hel
 - Create a mobile-first, responsive site ✅
 - Re-learn the basics of Next.js ✅
 - Make a state machine with XState ✅
-- Test the main journeys with Playwright
+  - createMachine
+  - using useContext to persist the state between pages
+  - storing state information in machine context
+  - services
+    - onDone
+    - onError
+  - actions
+  - guards
+- Test the main journey with Playwright
 - Deploy with AWS and Github Actions
 
 ## Resources used
