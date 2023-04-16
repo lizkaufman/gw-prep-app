@@ -1,9 +1,5 @@
-import { Content } from "next/font/google";
 import { createMachine, assign } from "xstate";
 import { ItemDetails } from "../../../components/itemCards/interfaces";
-import cartActions from "./cartActions";
-
-const { DELETE_ITEM, EMPTY_CART } = cartActions;
 
 /*
 Arguments of createMachine:
@@ -15,7 +11,7 @@ Options object -> How the machine does it
 
 export const shoppingCartMachine = createMachine(
   {
-    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QBWAIwAWZgDYATndvAHZ3AGYADnCAJk93SIAaEABPRE8AmOZMgMiQk3c-P3CvXIBfMuSZbG4FKlp6RmE1TlqtPjBycnRyZkwAG1JKADMemmZquR5FBpVm9lbNRR08cX1DPEtLZ1t7RzxnNwRwz3DmDJNPEPDAyMiggOS0hEjPZm9I729AmJNImLCAIqVQwNSW9WUTRYAGEZv11JA+AARMD9MCUMCEBxgGjbJAgXYODaHRDhEIBbI+bwZdzuExfEpPRDUikxGI3PzUvwheLfdzAkCTNozSGqWH1eGcREAQQgECxGNx5h2diJTnxR3CARC70KNx5JzpuSZCBi3OYMUiJjJlvclringFQvBSkaYrhCIgfAAojRMJQUnVKHibKr9iSEDydZEIuSea9PCYQt4TSUKZzPH5ItyQiE-PFwk7QVMg7MocwUWiDPJsTQ+C5YJQhixSMMMeQABR0gCUfGd0whbualfRtVrIYJYeJGtJp3OAUu11u93cj1SpJ5zDCwXc+VX3gSeaLsmFg7mLFlGiItfrjebzFb7a7Jl7-dLoual7HionhPDM+OOcLiuG5chXNdnhOHVt08TMFxMJM7j8Y8wQHV1z2YX1-RSU9KFvJsMQfNtOmfV9i1wstVCwgNcN-Kd1VAI5riycIvkuS14lyWlU08LIQNCAIigCAIMhKCpKhAPB0AgOBnDfLRKOEFU9mnRjEAAWj8E11PcbJhOEvJim8ExBJ8FCSwUj8WAWK8g2UtUDgA2Do28AJWNpPx2PyCDEDc7JvEtL4-CNQogQk+SRSHGEPSlCB7P-NSEGCPx3h5ALuTNbNYh4lLk28cI-jzViPjNcyKKs5hxWoSVbM6bpyHi1TXEQIrmH+JM6QyXifCSdcEGc95wiifKRuKTN+XC8iXUUlgR2ra9FUahjmoQALU2Kc5gvzOkYzCE4yumiqvxrRb8T-Jqjn+c58h8WCYm1Ew4h801d38NyrW1KNci+A60JmzC-Rol0lscxLsxMecgiidkFw+FM+oKs4EhuMlAj8OIbnEsogA */
+    /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZAeQEEARASQDkA4gH0AwpwBKAFQDEEdHhb4AbugDWLNFlwESFanQZM2XPkLGSpCFejKUcCgNoAGALovXiUJnSwc9hS8QAA9EAGYAdgAmZjCwgBYARgBOMOSIgA4wxLCMgDYAGhAAT0REiPjmKLzkxOcAVgyGtIz6+IBfdqKtbHwiMipaekZFEx4BEXFpGTBycnRyZkwAG1JKADMFmmYenX79IaNRjnHzKasbOwc8Dw8gnz8AvCDQhEiYuKTU9Kyc-KLSggMolmPFWjUIfEKolEvVOt0ML1dAMDMNjOdhCduABRbgyHGsbFSbHCXjEgCydyQIAe-muL0Q8TylShGSiETa9XqFSZEQBjPqMTyKTBeQizmcUW5HS6IF2fT0g0MIxYGKxuJkPG4pIpVO8vjpgWprzByWYzgiYtyGWSNVSDX5CHqyXqzHy4OyYWcTXicNl8uRB2V6MsmNMGux5IAClIAJoWaR6mkGp4MoFSqrCvJ5CVJZwtR3xVLMerObOJYGfZzxKJheFyxF7RWoo4sLUTHWRuQKJR4VQaZhazuUtz3FP043haKxBIpNKZT3-EqIZl5Gc1r3RMvJeIyhHaBUow4qwfcMwiMld2bzRYrNabcjbIeXkeeam01OTt7Tz5zn6LwplydfNzVaWtEihPJnQtesA32JU0VGAkiQ7F9u1GGwB2Q4lhyTD8J1AV53nXP8Fz+QDATCZ03TCHMJStWExVgxtDyDRCWGw1CKRmOYFiWVYNi2ZhsJJF88PHI1CKnD5Z2+MjcgoxBqgic1BXqCDVwaZ1mIPQMENbZhIxjWMO3OGRglgSg1hYUh1koWYAApSwAShkODm2PYwjLjUzLHEx4CJCRB0jCZgIltS0ywyBdLULJlzSovJqmzbkxRdTpZTwdAIDgIJ3KPYNFDHALJKChAAFpFIq11klqur6vqut-RYvSWxPLFfOkYrDWeL9YRBXcJRtDI2VrLlHWLG0LRSdIoJGlIdKReC2pDaQwx4XFus-KSECglTMkSKUEgiWEuUSQtS2YHN8iLSUUjqKJFqbAr2OYDFsQkCR2AkLbAtePawuBI6oVO9THSiEawolRphXybIkie1j9JPdtzBfX7SteDJKgiL06jybJhVhKJ4kdQVQvyCt8hJ3HaL3BtdOWzykOxQkpC4yMMd6naa3B6K3SiZISezfMSb9fclo8wqWG8kyzksLm0xhZwQTFKISfm3JDvqQtIlBdS6ktbkIhOxIMvaIA */
     id: "Shopping cart machine",
     predictableActionArguments: true,
     tsTypes: {} as import("./shoppingCartMachine.typegen").Typegen0,
@@ -28,6 +24,9 @@ export const shoppingCartMachine = createMachine(
           data: ItemDetails[];
         },
         DELETE_ITEM: {} as {
+          data: ItemDetails[];
+        },
+        EMPTY_CART: {} as {
           data: ItemDetails[];
         },
       },
@@ -103,9 +102,17 @@ export const shoppingCartMachine = createMachine(
       },
 
       EMPTYING_CART: {
-        entry: "EMPTY_CART",
-        after: {
-          50: "CART_LOADED",
+        invoke: {
+          id: "EMPTY_CART",
+          src: "EMPTY_CART",
+          onDone: {
+            target: "CART_LOADED",
+            actions: "UPDATE_CART",
+          },
+          onError: {
+            target: "CART_ERROR",
+            actions: "ASSIGN_ERROR_TO_CONTEXT",
+          },
         },
       },
     },
@@ -131,8 +138,8 @@ export const shoppingCartMachine = createMachine(
       UPDATE_CART: assign((context, event) => {
         if (
           event.type === "done.invoke.ADD_ITEM" ||
-          event.type === "done.invoke.DELETE_ITEM"
-          // || event.type === "done.invoke.EMPTY_CART"
+          event.type === "done.invoke.DELETE_ITEM" ||
+          event.type === "done.invoke.EMPTY_CART"
         ) {
           return {
             ...context,
@@ -201,6 +208,20 @@ export const shoppingCartMachine = createMachine(
             setTimeout(() => {
               // Simulate an API call
               resolve(cartItems);
+            }, 1000);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      },
+      EMPTY_CART: (context, event) => {
+        return new Promise((resolve, reject) => {
+          try {
+            const emptyCart: ItemDetails[] = [];
+
+            setTimeout(() => {
+              // Simulate an API call
+              resolve(emptyCart);
             }, 1000);
           } catch (error) {
             reject(error);
