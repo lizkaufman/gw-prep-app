@@ -1,25 +1,35 @@
-import { createMachine, assign, AnyEventObject } from "xstate";
+import { Content } from "next/font/google";
+import { createMachine, assign } from "xstate";
 import { ItemDetails } from "../../../components/itemCards/interfaces";
-import cartActions from "./actions";
+import cartActions from "./cartActions";
 
-const { ADD_ITEM, DELETE_ITEM, EMPTY_CART } = cartActions;
+const { DELETE_ITEM, EMPTY_CART } = cartActions;
+
+/*
+Arguments of createMachine:
+Config object  -> What the machine does
+Options object -> How the machine does it
+*/
+
+//https://stately.ai/docs/xstate/basics/options
 
 export const shoppingCartMachine = createMachine(
   {
     /** @xstate-layout N4IgpgJg5mDOIC5QGUAWB7ADpglgOygAIBjAQwCcAXQgW1ONXzADoAZdUifIsqgYgjo8LfADd0AaxZosuAiQrU6DJmw5d5vSgjHoylHEIDaABgC6ps4lCZ0sHAaHWQAD0QBWAIwAWZgDYATndvAHZ3AGYADnCAJk93SIAaEABPRE8AmOZMgMiQk3c-P3CvXIBfMuSZbG4FKlp6RmE1TlqtPjBycnRyZkwAG1JKADMemmZquR5FBpVm9lbNRR08cX1DPEtLZ1t7RzxnNwRwz3DmDJNPEPDAyMiggOS0hEjPZm9I729AmJNImLCAIqVQwNSW9WUTRYAGEZv11JA+AARMD9MCUMCEBxgGjbJAgXYODaHRDhEIBbI+bwZdzuExfEpPRDUikxGI3PzUvwheLfdzAkCTNozSGqWH1eGcREAQQgECxGNx5h2diJTnxR3CARC70KNx5JzpuSZCBi3OYMUiJjJlvclringFQvBSkaYrhCIgfAAojRMJQUnVKHibKr9iSEDydZEIuSea9PCYQt4TSUKZzPH5ItyQiE-PFwk7QVMg7MocwUWiDPJsTQ+C5YJQhixSMMMeQABR0gCUfGd0whbualfRtVrIYJYeJGtJp3OAUu11u93cj1SpJ5zDCwXc+VX3gSeaLsmFg7mLFlGiItfrjebzFb7a7Jl7-dLoual7HionhPDM+OOcLiuG5chXNdnhOHVt08TMFxMJM7j8Y8wQHV1z2YX1-RSU9KFvJsMQfNtOmfV9i1wstVCwgNcN-Kd1VAI5riycIvkuS14lyWlU08LIQNCAIigCAIMhKCpKhAPB0AgOBnDfLRKOEFU9mnRjEAAWj8E11PcbJhOEvJim8ExBJ8FCSwUj8WAWK8g2UtUDgA2Do28AJWNpPx2PyCDEDc7JvEtL4-CNQogQk+SRSHGEPSlCB7P-NSEGCPx3h5ALuTNbNYh4lLk28cI-jzViPjNcyKKs5hxWoSVbM6bpyHi1TXEQIrmH+JM6QyXifCSdcEGc95wiifKRuKTN+XC8iXUUlgR2ra9FUahjmoQALU2Kc5gvzOkYzCE4yumiqvxrRb8T-Jqjn+c58h8WCYm1Ew4h801d38NyrW1KNci+A60JmzC-Rol0lscxLsxMecgiidkFw+FM+oKs4EhuMlAj8OIbnEsogA */
     id: "Shopping cart machine",
     predictableActionArguments: true,
-    //tsTypes line autogenerates the typegen file to make sure all types line up correctly
     tsTypes: {} as import("./shoppingCartMachine.typegen").Typegen0,
     schema: {
       services: {
         LOAD_CART: {} as {
           data: ItemDetails[];
         },
+        ADD_ITEM: {} as {
+          data: ItemDetails[];
+        },
       },
     },
     context: {
-      //key-value store for anything needing to be stored in machine
       cartItems: [] as ItemDetails[],
       errorMessage: undefined as string | undefined,
     },
@@ -27,8 +37,6 @@ export const shoppingCartMachine = createMachine(
     states: {
       LOADING_CART: {
         invoke: {
-          //invoke a service that's passed in where useMachine is called
-          //service is async and returns a promise
           src: "LOAD_CART",
           onDone: [
             {
@@ -38,7 +46,7 @@ export const shoppingCartMachine = createMachine(
           ],
           onError: [
             {
-              target: "CART_LOADING_ERROR",
+              target: "CART_ERROR",
               actions: "ASSIGN_ERROR_TO_CONTEXT",
             },
           ],
@@ -49,24 +57,35 @@ export const shoppingCartMachine = createMachine(
         on: {
           DELETE_ITEM: "DELETING_ITEM",
           ADD_ITEM: "ADDING_ITEM",
-          EMPTY_CART: "EMPTYING_CART",
+          EMPTY_CART: {
+            cond: "cartHasItems",
+            target: "EMPTYING_CART",
+          },
         },
       },
 
-      CART_LOADING_ERROR: {},
-
-      DELETING_ITEM: {
-        //entry - thing happens, and then it pings back to cart loaded after that artificial 50ms...
-        //whether that entry action fails or succeeds, we don't know!
-        //and then the after has to force it back to the cart loaded state
-        entry: "DELETE_ITEM",
-        after: {
-          50: "CART_LOADED",
-        },
-      },
+      CART_ERROR: {},
 
       ADDING_ITEM: {
-        entry: "ADD_ITEM",
+        invoke: {
+          //upon entering the state, this service will be invoked
+          id: "addItemToCart",
+          //id is optional identifier
+          src: "ADD_ITEM",
+          //src is the reference to the actual service in the options object below
+          onDone: {
+            target: "CART_LOADED",
+            actions: "UPDATE_CART",
+          },
+          onError: {
+            target: "CART_ERROR",
+            actions: "ASSIGN_ERROR_TO_CONTEXT",
+          },
+        },
+      },
+
+      DELETING_ITEM: {
+        entry: "DELETE_ITEM",
         after: {
           50: "CART_LOADED",
         },
@@ -81,13 +100,14 @@ export const shoppingCartMachine = createMachine(
     },
   },
   {
+    guards: {
+      //https://stately.ai/docs/xstate/basics/options#guards
+      cartHasItems: (context) => context.cartItems.length > 0,
+    },
     actions: {
+      //https://stately.ai/docs/xstate/actions/
       ASSIGN_CART_TO_CONTEXT: assign((context, event) => {
-        //assign is one of Xstate's built-in actions to add things to context
-        //this function tells Xstate what to do to assign
-        //in assign callback fn, always need to return a partial of the new context
         return {
-          //event.data holds what's returned when the load cart service is invoked
           cartItems: event.data,
         };
       }),
@@ -96,18 +116,51 @@ export const shoppingCartMachine = createMachine(
           errorMessage: (event.data as Error).message,
         };
       }),
-      ADD_ITEM,
-      DELETE_ITEM,
-      EMPTY_CART,
+      UPDATE_CART: assign((context, event) => {
+        return {
+          cartItems: event.data,
+        };
+      }),
     },
     services: {
       LOAD_CART: (context, event) => {
-        // Here, you can simulate an async function that loads cart items.
-        // Replace this with a call to an actual API when you're ready.
+        //Simulating async fn that loads cart items
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve(context.cartItems);
           }, 1000);
+        });
+      },
+      ADD_ITEM: (context, event) => {
+        return new Promise((resolve, reject) => {
+          try {
+            const { item }: { item: ItemDetails } = event;
+            const cartItems = [...context.cartItems];
+
+            const existingItem = cartItems.find(
+              (item) => item.name === item.name
+            );
+            console.log({ item, existingItem });
+            //Creates a reference to the existing item. Anything changed will be reflected within the cartItems array too.
+            //Changing existingItem.quantity below will update it within the cartItems array.
+
+            if (existingItem) {
+              console.log("adding existing item");
+              //The non-null operator assures TS that this won't ever be null... I had to brute-force with it because no matter what type guards I put, TS still errored and said it might be null!
+              existingItem.quantity!++;
+            } else {
+              console.log("adding new item");
+              // Add the item to the cart with a quantity of 1
+              cartItems.push({ ...item, quantity: 1 });
+            }
+
+            setTimeout(() => {
+              // Simulate an API call
+              resolve(cartItems);
+            }, 1000);
+          } catch (error) {
+            reject(error);
+          }
         });
       },
     },
