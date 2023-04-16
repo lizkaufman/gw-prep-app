@@ -3,26 +3,32 @@
 export interface Typegen0 {
   "@@xstate/typegen": true;
   internalEvents: {
+    "done.invoke.ADD_ITEM": {
+      type: "done.invoke.ADD_ITEM";
+      data: unknown;
+      __tip: "See the XState TS docs to learn how to strongly type this.";
+    };
+    "done.invoke.DELETE_ITEM": {
+      type: "done.invoke.DELETE_ITEM";
+      data: unknown;
+      __tip: "See the XState TS docs to learn how to strongly type this.";
+    };
     "done.invoke.Shopping cart machine.LOADING_CART:invocation[0]": {
       type: "done.invoke.Shopping cart machine.LOADING_CART:invocation[0]";
       data: unknown;
       __tip: "See the XState TS docs to learn how to strongly type this.";
     };
-    "done.invoke.addItemToCart": {
-      type: "done.invoke.addItemToCart";
+    "error.platform.ADD_ITEM": {
+      type: "error.platform.ADD_ITEM";
       data: unknown;
-      __tip: "See the XState TS docs to learn how to strongly type this.";
+    };
+    "error.platform.DELETE_ITEM": {
+      type: "error.platform.DELETE_ITEM";
+      data: unknown;
     };
     "error.platform.Shopping cart machine.LOADING_CART:invocation[0]": {
       type: "error.platform.Shopping cart machine.LOADING_CART:invocation[0]";
       data: unknown;
-    };
-    "error.platform.addItemToCart": {
-      type: "error.platform.addItemToCart";
-      data: unknown;
-    };
-    "xstate.after(50)#Shopping cart machine.DELETING_ITEM": {
-      type: "xstate.after(50)#Shopping cart machine.DELETING_ITEM";
     };
     "xstate.after(50)#Shopping cart machine.EMPTYING_CART": {
       type: "xstate.after(50)#Shopping cart machine.EMPTYING_CART";
@@ -30,11 +36,12 @@ export interface Typegen0 {
     "xstate.init": { type: "xstate.init" };
   };
   invokeSrcNameMap: {
-    ADD_ITEM: "done.invoke.addItemToCart";
+    ADD_ITEM: "done.invoke.ADD_ITEM";
+    DELETE_ITEM: "done.invoke.DELETE_ITEM";
     LOAD_CART: "done.invoke.Shopping cart machine.LOADING_CART:invocation[0]";
   };
   missingImplementations: {
-    actions: "DELETE_ITEM" | "EMPTY_CART";
+    actions: "EMPTY_CART";
     delays: never;
     guards: never;
     services: never;
@@ -42,11 +49,11 @@ export interface Typegen0 {
   eventsCausingActions: {
     ASSIGN_CART_TO_CONTEXT: "done.invoke.Shopping cart machine.LOADING_CART:invocation[0]";
     ASSIGN_ERROR_TO_CONTEXT:
-      | "error.platform.Shopping cart machine.LOADING_CART:invocation[0]"
-      | "error.platform.addItemToCart";
-    DELETE_ITEM: "DELETE_ITEM";
+      | "error.platform.ADD_ITEM"
+      | "error.platform.DELETE_ITEM"
+      | "error.platform.Shopping cart machine.LOADING_CART:invocation[0]";
     EMPTY_CART: "EMPTY_CART";
-    UPDATE_CART: "done.invoke.addItemToCart";
+    UPDATE_CART: "done.invoke.ADD_ITEM" | "done.invoke.DELETE_ITEM";
   };
   eventsCausingDelays: {};
   eventsCausingGuards: {
@@ -54,6 +61,7 @@ export interface Typegen0 {
   };
   eventsCausingServices: {
     ADD_ITEM: "ADD_ITEM";
+    DELETE_ITEM: "DELETE_ITEM";
     LOAD_CART: "xstate.init";
   };
   matchesStates:

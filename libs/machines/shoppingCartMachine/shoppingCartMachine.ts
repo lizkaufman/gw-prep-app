@@ -27,6 +27,9 @@ export const shoppingCartMachine = createMachine(
         ADD_ITEM: {} as {
           data: ItemDetails[];
         },
+        DELETE_ITEM: {} as {
+          data: ItemDetails[];
+        },
       },
     },
     context: {
@@ -69,7 +72,7 @@ export const shoppingCartMachine = createMachine(
       ADDING_ITEM: {
         invoke: {
           //upon entering the state, this service will be invoked
-          id: "addItemToCart",
+          id: "ADD_ITEM",
           //id is optional identifier
           src: "ADD_ITEM",
           //src is the reference to the actual service in the options object below
@@ -85,9 +88,17 @@ export const shoppingCartMachine = createMachine(
       },
 
       DELETING_ITEM: {
-        entry: "DELETE_ITEM",
-        after: {
-          50: "CART_LOADED",
+        invoke: {
+          id: "DELETE_ITEM",
+          src: "DELETE_ITEM",
+          onDone: {
+            target: "CART_LOADED",
+            actions: "UPDATE_CART",
+          },
+          onError: {
+            target: "CART_ERROR",
+            actions: "ASSIGN_ERROR_TO_CONTEXT",
+          },
         },
       },
 
@@ -118,9 +129,17 @@ export const shoppingCartMachine = createMachine(
         };
       }),
       UPDATE_CART: assign((context, event) => {
-        return {
-          cartItems: event.data,
-        };
+        if (
+          event.type === "done.invoke.ADD_ITEM" ||
+          event.type === "done.invoke.DELETE_ITEM"
+          // || event.type === "done.invoke.EMPTY_CART"
+        ) {
+          return {
+            ...context,
+            cartItems: event.data,
+          };
+        }
+        return context;
       }),
     },
     services: {
@@ -139,7 +158,7 @@ export const shoppingCartMachine = createMachine(
             const cartItems = [...context.cartItems];
 
             const existingItem = cartItems.find(
-              (cartItem) => cartItem.name === item.name
+              (cartItem) => cartItem.id === item.id
             );
             console.log({ item, existingItem });
             //Creates a reference to the existing item. Anything changed will be reflected within the cartItems array too.
@@ -159,6 +178,17 @@ export const shoppingCartMachine = createMachine(
               // Simulate an API call
               resolve(cartItems);
             }, 1000);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      },
+      DELETE_ITEM: (context, event) => {
+        return new Promise((resolve, reject) => {
+          try {
+            const cartItems = [...context.cartItems];
+            const { item }: { item: ItemDetails } = event;
+            console.log(item);
           } catch (error) {
             reject(error);
           }
