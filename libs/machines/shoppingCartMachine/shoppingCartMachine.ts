@@ -160,17 +160,13 @@ export const shoppingCartMachine = createMachine(
             const existingItem = cartItems.find(
               (cartItem) => cartItem.id === item.id
             );
-            console.log({ item, existingItem });
             //Creates a reference to the existing item. Anything changed will be reflected within the cartItems array too.
             //Changing existingItem.quantity below will update it within the cartItems array.
 
             if (existingItem) {
-              console.log("adding existing item");
               //The non-null operator assures TS that this won't ever be null... I had to brute-force with it because no matter what type guards I put, TS still errored and said it might be null!
               existingItem.quantity!++;
             } else {
-              console.log("adding new item");
-              // Add the item to the cart with a quantity of 1
               cartItems.push({ ...item, quantity: 1 });
             }
 
@@ -187,8 +183,25 @@ export const shoppingCartMachine = createMachine(
         return new Promise((resolve, reject) => {
           try {
             const cartItems = [...context.cartItems];
-            const { item }: { item: ItemDetails } = event;
-            console.log(item);
+            const { itemId }: { itemId: number } = event;
+
+            const existingItem = cartItems.find(
+              (cartItem) => cartItem.id === itemId
+            );
+
+            if (existingItem?.quantity && existingItem.quantity > 1) {
+              existingItem.quantity--;
+            } else {
+              const index = cartItems.findIndex(
+                (cartItem) => cartItem.id === itemId
+              );
+              cartItems.splice(index, 1);
+            }
+
+            setTimeout(() => {
+              // Simulate an API call
+              resolve(cartItems);
+            }, 1000);
           } catch (error) {
             reject(error);
           }
