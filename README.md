@@ -21,9 +21,20 @@ This is a highly simplified version of the Games Workshop e-commerce site to hel
 
 ## Resources used
 
+### Next
+
 - [Next.js 13: Working with the new app directory](https://blog.logrocket.com/next-js-13-new-app-directory/)
 - [Next.js docs on next/image](https://nextjs.org/docs/api-reference/next/image)
+
+### Xstate
+
 - [React & XState Tutorial (Stately)](https://www.youtube.com/watch?v=wTFUVxaZol8&list=PLvWgkXBB3dd4ocSi17y1JmMmz7S5cV8vI&index=2)
+
+### Playwright
+
+- [Next.js docs on Playwright](https://nextjs.org/docs/testing#playwright)
+- [Next.js Playwright example](https://github.com/vercel/next.js/tree/canary/examples/with-playwright)
+- [Testing Next.js with Playwright (Frontend Digest)](https://frontend-digest.com/using-playwright-to-test-next-js-applications-80a767540091)
 
 ## Original Next readme
 
