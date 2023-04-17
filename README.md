@@ -16,8 +16,8 @@ This is a highly simplified version of the Games Workshop e-commerce site to hel
     - onError
   - actions
   - guards
-- Test the main journey with Playwright
-- Deploy with AWS and Github Actions
+- Test the main journey with Playwright 🛠️
+- Deploy with AWS and Github Actions 🔮
 
 ## Resources used
 
